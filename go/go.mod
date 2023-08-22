@@ -3,7 +3,6 @@ module github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend
 go 1.21.0
 
 require (
-	github.com/joho/godotenv v1.5.1
 	gorm.io/driver/postgres v1.5.2
 	gorm.io/gorm v1.25.4
 )
