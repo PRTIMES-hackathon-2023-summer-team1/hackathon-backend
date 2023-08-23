@@ -339,6 +339,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "tour_id": {
+                    "type": "integer"
+                  },
                   "name": {
                     "type": "string"
                   },
@@ -403,6 +406,7 @@
                   }
                 },
                 "required": [
+                  "tour_id",
                   "name",
                   "description",
                   "body",
@@ -411,6 +415,7 @@
                   "capacity_people"
                 ],
                 "x-apidog-ignore-properties": [
+                  "tour_id",
                   "name",
                   "description",
                   "body",
@@ -1691,117 +1696,6 @@
         ],
         "x-apidog-folder": "",
         "x-apidog-ignore-properties": []
-      },
-      "Category": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "minimum": 1,
-            "description": "カテゴリーID番号"
-          },
-          "name": {
-            "type": "string",
-            "description": "カテゴリー名"
-          }
-        },
-        "xml": {
-          "name": "Category"
-        },
-        "x-apidog-orders": [
-          "id",
-          "name"
-        ],
-        "x-apidog-ignore-properties": [],
-        "x-apidog-folder": ""
-      },
-      "Tag": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "minimum": 1,
-            "description": "タグID番号"
-          },
-          "name": {
-            "type": "string",
-            "description": "タグ名"
-          }
-        },
-        "xml": {
-          "name": "Tag"
-        },
-        "x-apidog-orders": [
-          "id",
-          "name"
-        ],
-        "x-apidog-ignore-properties": [],
-        "x-apidog-folder": ""
-      },
-      "Pet": {
-        "required": [
-          "name",
-          "photoUrls",
-          "id",
-          "category",
-          "tags",
-          "status"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "minimum": 1,
-            "description": "ペットID番号"
-          },
-          "category": {
-            "$ref": "#/components/schemas/Category",
-            "description": "カテゴリー"
-          },
-          "name": {
-            "type": "string",
-            "description": "名前",
-            "examples": [
-              "doggie"
-            ]
-          },
-          "photoUrls": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "写真URL"
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Tag"
-            },
-            "description": "タグ"
-          },
-          "status": {
-            "type": "string",
-            "description": "ペット販売状況",
-            "enum": [
-              "available",
-              "pending",
-              "sold"
-            ]
-          }
-        },
-        "x-apidog-orders": [
-          "id",
-          "category",
-          "name",
-          "photoUrls",
-          "tags",
-          "status"
-        ],
-        "x-apidog-ignore-properties": [],
-        "x-apidog-folder": ""
       }
     }
   },
