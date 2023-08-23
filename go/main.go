@@ -9,11 +9,11 @@ import (
 
 func main() {
 	appInfo := config.LoadConfig()
-	_, sqlDB := db.Connect(appInfo.PostgresInfo)
+	repo, sqlDB := db.Connect(appInfo.PostgresInfo)
 	defer sqlDB.Close()
-	models.Migrate()
-	models.InsertDummyData()
+	models.Migrate(repo)
+	models.InsertDummyData(repo)
 
-	r := router.NewRouter()
+	r := router.NewRouter(repo)
 	r.Run(":8080")
 }
