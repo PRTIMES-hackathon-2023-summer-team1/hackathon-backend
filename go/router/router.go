@@ -25,8 +25,8 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		tourRepository := repository.NewTourRepository(db)
 		tourController := controllers.NewTourController(tourRepository)
 		//ツアー情報閲覧系
-		tourGroup.GET("", tourController.GetAll)
-		tourGroup.GET("/:tour_id", tourController.Get)
+		tourGroup.GET("", tourController.GetAllTours)
+		tourGroup.GET("/:tour_id", tourController.GetTour)
 
 		//ツアー情報操作系
 		tourGroup.POST("", tourController.CreateTour)
