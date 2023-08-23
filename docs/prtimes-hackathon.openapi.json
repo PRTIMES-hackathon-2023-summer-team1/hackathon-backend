@@ -1,0 +1,1228 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "PR_TIMES",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "API"
+    },
+    {
+      "name": "API/tour"
+    },
+    {
+      "name": "API/booking"
+    }
+  ],
+  "paths": {
+    "/tours": {
+      "get": {
+        "summary": "ツアー一覧取得",
+        "x-apidog-folder": "API/tour",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": ["API/tour"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tour_lists": {
+                      "type": "object",
+                      "properties": {
+                        "tour_id": {
+                          "type": "string",
+                          "additionalProperties": false
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "dates": {
+                          "type": "object",
+                          "properties": {
+                            "first_day": {
+                              "type": "string",
+                              "description": "RFC3339形式で"
+                            },
+                            "last_day": {
+                              "type": "string",
+                              "description": "RFC3339形式で"
+                            }
+                          },
+                          "x-apidog-orders": ["first_day", "last_day"],
+                          "required": ["first_day", "last_day"],
+                          "x-apidog-ignore-properties": []
+                        },
+                        "capacity_people": {
+                          "type": "object",
+                          "properties": {
+                            "max": {
+                              "type": "integer"
+                            },
+                            "current": {
+                              "type": "integer"
+                            }
+                          },
+                          "x-apidog-orders": ["max", "current"],
+                          "required": ["max", "current"],
+                          "x-apidog-ignore-properties": []
+                        }
+                      },
+                      "x-apidog-orders": ["01H8CFMRC0BW1MABJW28N3A9JK"],
+                      "required": [
+                        "tour_id",
+                        "name",
+                        "description",
+                        "price",
+                        "dates",
+                        "capacity_people"
+                      ],
+                      "x-apidog-refs": {
+                        "01H8CFMRC0BW1MABJW28N3A9JK": {
+                          "$ref": "#/components/schemas/tour"
+                        }
+                      },
+                      "x-apidog-ignore-properties": [
+                        "tour_id",
+                        "name",
+                        "description",
+                        "price",
+                        "dates",
+                        "capacity_people"
+                      ]
+                    }
+                  },
+                  "x-apidog-orders": ["01H8CEF7HHYAZXK54QPSDK90ES"],
+                  "required": ["tour_lists"],
+                  "x-apidog-refs": {
+                    "01H8CEF7HHYAZXK54QPSDK90ES": {
+                      "$ref": "#/components/schemas/tours"
+                    }
+                  },
+                  "x-apidog-ignore-properties": ["tour_lists"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/380601/apis/api-4103862-run"
+      }
+    },
+    "/tours/{tour_id}": {
+      "get": {
+        "summary": "ツアー詳細取得",
+        "x-apidog-folder": "API/tour",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": ["API/tour"],
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tour_id": {
+                      "type": "string",
+                      "additionalProperties": false
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "dates": {
+                      "type": "object",
+                      "properties": {
+                        "first_day": {
+                          "type": "string",
+                          "description": "RFC3339形式で"
+                        },
+                        "last_day": {
+                          "type": "string",
+                          "description": "RFC3339形式で"
+                        }
+                      },
+                      "x-apidog-orders": ["first_day", "last_day"],
+                      "required": ["first_day", "last_day"],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "capacity_people": {
+                      "type": "object",
+                      "properties": {
+                        "max": {
+                          "type": "integer"
+                        },
+                        "current": {
+                          "type": "integer"
+                        }
+                      },
+                      "x-apidog-orders": ["max", "current"],
+                      "required": ["max", "current"],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "x-apidog-orders": ["01H8CFQ8SGZJNBZQHRCHS2A2W8"],
+                  "required": [
+                    "tour_id",
+                    "name",
+                    "description",
+                    "price",
+                    "dates",
+                    "capacity_people"
+                  ],
+                  "x-apidog-refs": {
+                    "01H8CFQ8SGZJNBZQHRCHS2A2W8": {
+                      "$ref": "#/components/schemas/tour"
+                    }
+                  },
+                  "x-apidog-ignore-properties": [
+                    "tour_id",
+                    "name",
+                    "description",
+                    "price",
+                    "dates",
+                    "capacity_people"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/380601/apis/api-4103886-run"
+      },
+      "post": {
+        "summary": "ツアー新規作成",
+        "x-apidog-folder": "API/tour",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": ["API/tour"],
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "dates": {
+                    "type": "object",
+                    "properties": {
+                      "first_day": {
+                        "type": "string",
+                        "description": "RFC3339形式で"
+                      },
+                      "last_day": {
+                        "type": "string",
+                        "description": "RFC3339形式で"
+                      }
+                    },
+                    "x-apidog-orders": ["first_day", "last_day"],
+                    "required": ["first_day", "last_day"],
+                    "x-apidog-ignore-properties": []
+                  },
+                  "capacity_people": {
+                    "type": "object",
+                    "properties": {
+                      "max": {
+                        "type": "integer"
+                      },
+                      "current": {
+                        "type": "integer"
+                      }
+                    },
+                    "x-apidog-orders": ["max", "current"],
+                    "required": ["max", "current"],
+                    "x-apidog-ignore-properties": []
+                  }
+                },
+                "x-apidog-orders": ["01H8CGPJK14W4SVCH5SFGQACYW"],
+                "x-apidog-refs": {
+                  "01H8CGPJK14W4SVCH5SFGQACYW": {
+                    "$ref": "#/components/schemas/tour"
+                  }
+                },
+                "required": [
+                  "name",
+                  "description",
+                  "price",
+                  "dates",
+                  "capacity_people"
+                ],
+                "x-apidog-ignore-properties": [
+                  "name",
+                  "description",
+                  "price",
+                  "dates",
+                  "capacity_people"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tour_id": {
+                      "type": "string",
+                      "additionalProperties": false
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "dates": {
+                      "type": "object",
+                      "properties": {
+                        "first_day": {
+                          "type": "string",
+                          "description": "RFC3339形式で"
+                        },
+                        "last_day": {
+                          "type": "string",
+                          "description": "RFC3339形式で"
+                        }
+                      },
+                      "x-apidog-orders": ["first_day", "last_day"],
+                      "required": ["first_day", "last_day"],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "capacity_people": {
+                      "type": "object",
+                      "properties": {
+                        "max": {
+                          "type": "integer"
+                        },
+                        "current": {
+                          "type": "integer"
+                        }
+                      },
+                      "x-apidog-orders": ["max", "current"],
+                      "required": ["max", "current"],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "x-apidog-orders": ["01H8CGQJQSET17YQTZ3HZ88NPJ"],
+                  "required": [
+                    "tour_id",
+                    "name",
+                    "description",
+                    "price",
+                    "dates",
+                    "capacity_people"
+                  ],
+                  "x-apidog-refs": {
+                    "01H8CGQJQSET17YQTZ3HZ88NPJ": {
+                      "$ref": "#/components/schemas/tour"
+                    }
+                  },
+                  "description": "POSTはリクエスト内容を返すのが一般的らしいので",
+                  "x-apidog-ignore-properties": [
+                    "tour_id",
+                    "name",
+                    "description",
+                    "price",
+                    "dates",
+                    "capacity_people"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/380601/apis/api-4103919-run"
+      },
+      "put": {
+        "summary": "ツアー内容編集",
+        "x-apidog-folder": "API/tour",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": ["API/tour"],
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tour_id": {
+                    "type": "string",
+                    "additionalProperties": false
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "dates": {
+                    "type": "object",
+                    "properties": {
+                      "first_day": {
+                        "type": "string",
+                        "description": "RFC3339形式で"
+                      },
+                      "last_day": {
+                        "type": "string",
+                        "description": "RFC3339形式で"
+                      }
+                    },
+                    "x-apidog-orders": ["first_day", "last_day"],
+                    "required": ["first_day", "last_day"],
+                    "x-apidog-ignore-properties": []
+                  },
+                  "capacity_people": {
+                    "type": "object",
+                    "properties": {
+                      "max": {
+                        "type": "integer"
+                      },
+                      "current": {
+                        "type": "integer"
+                      }
+                    },
+                    "x-apidog-orders": ["max", "current"],
+                    "required": ["max", "current"],
+                    "x-apidog-ignore-properties": []
+                  }
+                },
+                "x-apidog-orders": ["01H8CHEMF8XG1F7KSDGXTGFJ8X"],
+                "required": [
+                  "tour_id",
+                  "name",
+                  "description",
+                  "price",
+                  "dates",
+                  "capacity_people"
+                ],
+                "x-apidog-refs": {
+                  "01H8CHEMF8XG1F7KSDGXTGFJ8X": {
+                    "$ref": "#/components/schemas/tour"
+                  }
+                },
+                "x-apidog-ignore-properties": [
+                  "tour_id",
+                  "name",
+                  "description",
+                  "price",
+                  "dates",
+                  "capacity_people"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tour_id": {
+                      "type": "string",
+                      "additionalProperties": false
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "dates": {
+                      "type": "object",
+                      "properties": {
+                        "first_day": {
+                          "type": "string",
+                          "description": "RFC3339形式で"
+                        },
+                        "last_day": {
+                          "type": "string",
+                          "description": "RFC3339形式で"
+                        }
+                      },
+                      "x-apidog-orders": ["first_day", "last_day"],
+                      "required": ["first_day", "last_day"],
+                      "x-apidog-ignore-properties": []
+                    },
+                    "capacity_people": {
+                      "type": "object",
+                      "properties": {
+                        "max": {
+                          "type": "integer"
+                        },
+                        "current": {
+                          "type": "integer"
+                        }
+                      },
+                      "x-apidog-orders": ["max", "current"],
+                      "required": ["max", "current"],
+                      "x-apidog-ignore-properties": []
+                    }
+                  },
+                  "x-apidog-orders": ["01H8CHG86VD7108JM7H9WYMPVE"],
+                  "required": [
+                    "tour_id",
+                    "name",
+                    "description",
+                    "price",
+                    "dates",
+                    "capacity_people"
+                  ],
+                  "x-apidog-refs": {
+                    "01H8CHG86VD7108JM7H9WYMPVE": {
+                      "$ref": "#/components/schemas/tour"
+                    }
+                  },
+                  "x-apidog-ignore-properties": [
+                    "tour_id",
+                    "name",
+                    "description",
+                    "price",
+                    "dates",
+                    "capacity_people"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/380601/apis/api-4103927-run"
+      }
+    },
+    "/tours/{tour_id}/bookings": {
+      "post": {
+        "summary": "予約作成",
+        "x-apidog-folder": "API/booking",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": ["API/booking"],
+        "parameters": [
+          {
+            "name": "tour_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customer_lists": {
+                    "type": "object",
+                    "properties": {
+                      "tour_id": {
+                        "type": "string"
+                      },
+                      "user_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "age": {
+                        "type": "integer"
+                      },
+                      "is_man": {
+                        "type": "boolean"
+                      }
+                    },
+                    "x-apidog-orders": ["01H8CK5FJEDQGWYG26Z5X7B1EP"],
+                    "required": ["tour_id", "user_id", "name", "age", "is_man"],
+                    "x-apidog-refs": {
+                      "01H8CK5FJEDQGWYG26Z5X7B1EP": {
+                        "$ref": "#/components/schemas/customer"
+                      }
+                    },
+                    "x-apidog-ignore-properties": [
+                      "tour_id",
+                      "user_id",
+                      "name",
+                      "age",
+                      "is_man"
+                    ]
+                  }
+                },
+                "x-apidog-orders": ["01H8CK686P5YQBV1MAJ7QQ1HHW"],
+                "required": ["customer_lists"],
+                "x-apidog-refs": {
+                  "01H8CK686P5YQBV1MAJ7QQ1HHW": {
+                    "$ref": "#/components/schemas/customers"
+                  }
+                },
+                "x-apidog-ignore-properties": ["customer_lists"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "customer_lists": {
+                      "type": "object",
+                      "properties": {
+                        "tour_id": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "age": {
+                          "type": "integer"
+                        },
+                        "is_man": {
+                          "type": "boolean"
+                        }
+                      },
+                      "x-apidog-orders": ["01H8CK5FJEDQGWYG26Z5X7B1EP"],
+                      "required": [
+                        "tour_id",
+                        "user_id",
+                        "name",
+                        "age",
+                        "is_man"
+                      ],
+                      "x-apidog-refs": {
+                        "01H8CK5FJEDQGWYG26Z5X7B1EP": {
+                          "$ref": "#/components/schemas/customer"
+                        }
+                      },
+                      "x-apidog-ignore-properties": [
+                        "tour_id",
+                        "user_id",
+                        "name",
+                        "age",
+                        "is_man"
+                      ]
+                    }
+                  },
+                  "x-apidog-orders": ["01H8CK6E8Q7P835PF3KKN57AK0"],
+                  "required": ["customer_lists"],
+                  "x-apidog-refs": {
+                    "01H8CK6E8Q7P835PF3KKN57AK0": {
+                      "$ref": "#/components/schemas/customers"
+                    }
+                  },
+                  "x-apidog-ignore-properties": ["customer_lists"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/380601/apis/api-4104475-run"
+      }
+    },
+    "/bookings/{booking_id}": {
+      "delete": {
+        "summary": "無題のAPI",
+        "x-apidog-folder": "API/booking",
+        "x-apidog-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": ["API/booking"],
+        "parameters": [
+          {
+            "name": "booking_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apidog-orders": ["01H8CKFB4RPNR93VJD9YKDA5X0"],
+                  "required": ["01H8CKFB4RPNR93VJD9YKDA5X0"],
+                  "x-apidog-ignore-properties": []
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Record not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
+                }
+              }
+            }
+          },
+          "x-200:OK": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "",
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "x-apidog-orders": ["code", "message"],
+                  "required": ["code", "message"]
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apidog": "https://apidog.com/web/project/380601/apis/api-4104482-run"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "customers": {
+        "type": "object",
+        "properties": {
+          "customer_lists": {
+            "type": "object",
+            "properties": {
+              "tour_id": {
+                "type": "string"
+              },
+              "user_id": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "age": {
+                "type": "integer"
+              },
+              "is_man": {
+                "type": "boolean"
+              }
+            },
+            "x-apidog-orders": ["01H8CK5FJEDQGWYG26Z5X7B1EP"],
+            "required": ["tour_id", "user_id", "name", "age", "is_man"],
+            "x-apidog-refs": {
+              "01H8CK5FJEDQGWYG26Z5X7B1EP": {
+                "$ref": "#/components/schemas/customer"
+              }
+            },
+            "x-apidog-ignore-properties": [
+              "tour_id",
+              "user_id",
+              "name",
+              "age",
+              "is_man"
+            ]
+          }
+        },
+        "x-apidog-orders": ["customer_lists"],
+        "required": ["customer_lists"],
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": ""
+      },
+      "customer": {
+        "type": "object",
+        "properties": {
+          "tour_id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer"
+          },
+          "is_man": {
+            "type": "boolean"
+          }
+        },
+        "x-apidog-orders": ["tour_id", "user_id", "name", "age", "is_man"],
+        "required": ["tour_id", "user_id", "name", "age", "is_man"],
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": ""
+      },
+      "tours": {
+        "type": "object",
+        "properties": {
+          "tour_lists": {
+            "type": "object",
+            "properties": {
+              "tour_id": {
+                "type": "string",
+                "additionalProperties": false
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "price": {
+                "type": "number"
+              },
+              "dates": {
+                "type": "object",
+                "properties": {
+                  "first_day": {
+                    "type": "string",
+                    "description": "RFC3339形式で"
+                  },
+                  "last_day": {
+                    "type": "string",
+                    "description": "RFC3339形式で"
+                  }
+                },
+                "x-apidog-orders": ["first_day", "last_day"],
+                "required": ["first_day", "last_day"],
+                "x-apidog-ignore-properties": []
+              },
+              "capacity_people": {
+                "type": "object",
+                "properties": {
+                  "max": {
+                    "type": "integer"
+                  },
+                  "current": {
+                    "type": "integer"
+                  }
+                },
+                "x-apidog-orders": ["max", "current"],
+                "required": ["max", "current"],
+                "x-apidog-ignore-properties": []
+              }
+            },
+            "x-apidog-orders": ["01H8CFMRC0BW1MABJW28N3A9JK"],
+            "required": [
+              "tour_id",
+              "name",
+              "description",
+              "price",
+              "dates",
+              "capacity_people"
+            ],
+            "x-apidog-refs": {
+              "01H8CFMRC0BW1MABJW28N3A9JK": {
+                "$ref": "#/components/schemas/tour"
+              }
+            },
+            "x-apidog-ignore-properties": [
+              "tour_id",
+              "name",
+              "description",
+              "price",
+              "dates",
+              "capacity_people"
+            ]
+          }
+        },
+        "x-apidog-orders": ["tour_lists"],
+        "required": ["tour_lists"],
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": ""
+      },
+      "tour": {
+        "type": "object",
+        "properties": {
+          "tour_id": {
+            "type": "string",
+            "additionalProperties": false
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "dates": {
+            "type": "object",
+            "properties": {
+              "first_day": {
+                "type": "string",
+                "description": "RFC3339形式で"
+              },
+              "last_day": {
+                "type": "string",
+                "description": "RFC3339形式で"
+              }
+            },
+            "x-apidog-orders": ["first_day", "last_day"],
+            "required": ["first_day", "last_day"],
+            "x-apidog-ignore-properties": []
+          },
+          "capacity_people": {
+            "type": "object",
+            "properties": {
+              "max": {
+                "type": "integer"
+              },
+              "current": {
+                "type": "integer"
+              }
+            },
+            "x-apidog-orders": ["max", "current"],
+            "required": ["max", "current"],
+            "x-apidog-ignore-properties": []
+          }
+        },
+        "x-apidog-orders": [
+          "tour_id",
+          "name",
+          "description",
+          "price",
+          "dates",
+          "capacity_people"
+        ],
+        "required": [
+          "name",
+          "description",
+          "price",
+          "dates",
+          "tour_id",
+          "capacity_people"
+        ],
+        "x-apidog-ignore-properties": [],
+        "x-apidog-folder": ""
+      }
+    }
+  },
+  "servers": []
+}
