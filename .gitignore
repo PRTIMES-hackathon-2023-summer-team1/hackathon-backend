@@ -2,4 +2,3 @@
 
 build/postgres/data
 .env
-.idea
