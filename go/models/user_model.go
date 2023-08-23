@@ -1,9 +1,12 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type User struct {
 	UserID    string    `gorm:"primaryKey" json:"user_id"`
+	Name      string    `json:"name"`
 	Email     string    `gorm:"unique, not null" json:"email"`
 	Password  string    `gorm:"not null" json:"password"`
 	IsAdmin   bool      `json:"is_admin"`
