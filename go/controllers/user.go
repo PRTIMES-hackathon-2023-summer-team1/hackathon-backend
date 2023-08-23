@@ -40,7 +40,7 @@ func (t UserController) Signup(c *gin.Context) {
 	err := c.ShouldBindJSON(user)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.String(400, "json form incorrect")
+		c.JSON(400, "")
 		return
 	}
 
@@ -51,11 +51,11 @@ func (t UserController) Signup(c *gin.Context) {
 	err = t.userModelRepository.Create(*user)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.String(400, "failed to insert data into DB")
+		c.JSON(400, "")
 		return
 	}
 
-	c.String(200, "Success")
+	c.JSON(200, "")
 }
 
 /* 認証方法未決定, 未実装 */
@@ -66,7 +66,7 @@ func (t UserController) Login(c *gin.Context) {
 	err := c.ShouldBindJSON(user)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.String(400, "json form incorrect")
+		c.JSON(400, "")
 		return
 	}
 
@@ -75,16 +75,16 @@ func (t UserController) Login(c *gin.Context) {
 	registered, err = t.userModelRepository.Read(user.UserID)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.String(400, "failed to get data from DB")
+		c.JSON(400, "")
 		return
 	}
 
 	// パスワードのハッシュをチェック
 	if !checkPassword(user.Password, registered.Password) {
 		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.String(400, "password incorrect")
+		c.JSON(400, "")
 		return
 	}
 
-	c.String(200, "OK")
+	c.JSON(200, "")
 }
