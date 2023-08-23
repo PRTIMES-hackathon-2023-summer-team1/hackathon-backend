@@ -1,14 +1,16 @@
 package models
 
-import "github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/db"
+import (
+	"gorm.io/gorm"
+)
 
-func Migrate() {
-	db.DB.AutoMigrate(&Test{})
+func Migrate(db *gorm.DB) {
+	db.AutoMigrate(&TestModel{})
 }
 
-func InsertDummyData() {
-	var test = []Test{
+func InsertDummyData(db *gorm.DB) {
+	var test = []TestModel{
 		{UID: "33u@2", Name: "Yuta"},
 	}
-	db.DB.Save(&test)
+	db.Save(&test)
 }

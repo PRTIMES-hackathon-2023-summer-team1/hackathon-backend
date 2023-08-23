@@ -10,7 +10,6 @@ import (
 func ErrorHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
-
 		err := c.Errors.ByType(gin.ErrorTypePublic).Last()
 		if err != nil {
 			log.Print(err.Err)

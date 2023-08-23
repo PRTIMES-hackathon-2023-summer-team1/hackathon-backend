@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/config"
-	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -16,8 +15,6 @@ const (
 	MaxRetry = 50
 	WaitTime = 1
 )
-
-var DB *gorm.DB
 
 func Connect(postgresInfo *config.PostgresInfo) (*gorm.DB, *sql.DB) {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Tokyo", postgresInfo.Host, postgresInfo.User, postgresInfo.Password, postgresInfo.Database, postgresInfo.Port)
@@ -38,10 +35,5 @@ func Connect(postgresInfo *config.PostgresInfo) (*gorm.DB, *sql.DB) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	DB = db
 	return db, sqlDB
-}
-
-func Migrate(db *gorm.DB) {
-	db.AutoMigrate(&models.TestModel{})
 }
