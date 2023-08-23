@@ -24,9 +24,7 @@
         "x-apidog-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "API/tour"
-        ],
+        "tags": ["API/tour"],
         "parameters": [],
         "responses": {
           "200": {
@@ -64,14 +62,8 @@
                               "description": "RFC3339形式で"
                             }
                           },
-                          "x-apidog-orders": [
-                            "first_day",
-                            "last_day"
-                          ],
-                          "required": [
-                            "first_day",
-                            "last_day"
-                          ],
+                          "x-apidog-orders": ["first_day", "last_day"],
+                          "required": ["first_day", "last_day"],
                           "x-apidog-ignore-properties": []
                         },
                         "capacity_people": {
@@ -84,20 +76,12 @@
                               "type": "integer"
                             }
                           },
-                          "x-apidog-orders": [
-                            "max",
-                            "current"
-                          ],
-                          "required": [
-                            "max",
-                            "current"
-                          ],
+                          "x-apidog-orders": ["max", "current"],
+                          "required": ["max", "current"],
                           "x-apidog-ignore-properties": []
                         }
                       },
-                      "x-apidog-orders": [
-                        "01H8CFMRC0BW1MABJW28N3A9JK"
-                      ],
+                      "x-apidog-orders": ["01H8CFMRC0BW1MABJW28N3A9JK"],
                       "required": [
                         "tour_id",
                         "name",
@@ -121,20 +105,14 @@
                       ]
                     }
                   },
-                  "x-apidog-orders": [
-                    "01H8CEF7HHYAZXK54QPSDK90ES"
-                  ],
-                  "required": [
-                    "tour_lists"
-                  ],
+                  "x-apidog-orders": ["01H8CEF7HHYAZXK54QPSDK90ES"],
+                  "required": ["tour_lists"],
                   "x-apidog-refs": {
                     "01H8CEF7HHYAZXK54QPSDK90ES": {
                       "$ref": "#/components/schemas/tours"
                     }
                   },
-                  "x-apidog-ignore-properties": [
-                    "tour_lists"
-                  ]
+                  "x-apidog-ignore-properties": ["tour_lists"]
                 }
               }
             }
@@ -153,14 +131,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -179,14 +151,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -202,9 +168,7 @@
         "x-apidog-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "API/tour"
-        ],
+        "tags": ["API/tour"],
         "parameters": [
           {
             "name": "tour_id",
@@ -249,14 +213,8 @@
                           "description": "RFC3339形式で"
                         }
                       },
-                      "x-apidog-orders": [
-                        "first_day",
-                        "last_day"
-                      ],
-                      "required": [
-                        "first_day",
-                        "last_day"
-                      ],
+                      "x-apidog-orders": ["first_day", "last_day"],
+                      "required": ["first_day", "last_day"],
                       "x-apidog-ignore-properties": []
                     },
                     "capacity_people": {
@@ -269,20 +227,12 @@
                           "type": "integer"
                         }
                       },
-                      "x-apidog-orders": [
-                        "max",
-                        "current"
-                      ],
-                      "required": [
-                        "max",
-                        "current"
-                      ],
+                      "x-apidog-orders": ["max", "current"],
+                      "required": ["max", "current"],
                       "x-apidog-ignore-properties": []
                     }
                   },
-                  "x-apidog-orders": [
-                    "01H8CFQ8SGZJNBZQHRCHS2A2W8"
-                  ],
+                  "x-apidog-orders": ["01H8CFQ8SGZJNBZQHRCHS2A2W8"],
                   "required": [
                     "tour_id",
                     "name",
@@ -322,14 +272,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -348,14 +292,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -369,9 +307,7 @@
         "x-apidog-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "API/tour"
-        ],
+        "tags": ["API/tour"],
         "parameters": [
           {
             "name": "tour_id",
@@ -410,14 +346,8 @@
                         "description": "RFC3339形式で"
                       }
                     },
-                    "x-apidog-orders": [
-                      "first_day",
-                      "last_day"
-                    ],
-                    "required": [
-                      "first_day",
-                      "last_day"
-                    ],
+                    "x-apidog-orders": ["first_day", "last_day"],
+                    "required": ["first_day", "last_day"],
                     "x-apidog-ignore-properties": []
                   },
                   "capacity_people": {
@@ -430,20 +360,12 @@
                         "type": "integer"
                       }
                     },
-                    "x-apidog-orders": [
-                      "max",
-                      "current"
-                    ],
-                    "required": [
-                      "max",
-                      "current"
-                    ],
+                    "x-apidog-orders": ["max", "current"],
+                    "required": ["max", "current"],
                     "x-apidog-ignore-properties": []
                   }
                 },
-                "x-apidog-orders": [
-                  "01H8CGPJK14W4SVCH5SFGQACYW"
-                ],
+                "x-apidog-orders": ["01H8CGPJK14W4SVCH5SFGQACYW"],
                 "x-apidog-refs": {
                   "01H8CGPJK14W4SVCH5SFGQACYW": {
                     "$ref": "#/components/schemas/tour"
@@ -500,14 +422,8 @@
                           "description": "RFC3339形式で"
                         }
                       },
-                      "x-apidog-orders": [
-                        "first_day",
-                        "last_day"
-                      ],
-                      "required": [
-                        "first_day",
-                        "last_day"
-                      ],
+                      "x-apidog-orders": ["first_day", "last_day"],
+                      "required": ["first_day", "last_day"],
                       "x-apidog-ignore-properties": []
                     },
                     "capacity_people": {
@@ -520,20 +436,12 @@
                           "type": "integer"
                         }
                       },
-                      "x-apidog-orders": [
-                        "max",
-                        "current"
-                      ],
-                      "required": [
-                        "max",
-                        "current"
-                      ],
+                      "x-apidog-orders": ["max", "current"],
+                      "required": ["max", "current"],
                       "x-apidog-ignore-properties": []
                     }
                   },
-                  "x-apidog-orders": [
-                    "01H8CGQJQSET17YQTZ3HZ88NPJ"
-                  ],
+                  "x-apidog-orders": ["01H8CGQJQSET17YQTZ3HZ88NPJ"],
                   "required": [
                     "tour_id",
                     "name",
@@ -574,14 +482,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -600,14 +502,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -621,9 +517,7 @@
         "x-apidog-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "API/tour"
-        ],
+        "tags": ["API/tour"],
         "parameters": [
           {
             "name": "tour_id",
@@ -666,14 +560,8 @@
                         "description": "RFC3339形式で"
                       }
                     },
-                    "x-apidog-orders": [
-                      "first_day",
-                      "last_day"
-                    ],
-                    "required": [
-                      "first_day",
-                      "last_day"
-                    ],
+                    "x-apidog-orders": ["first_day", "last_day"],
+                    "required": ["first_day", "last_day"],
                     "x-apidog-ignore-properties": []
                   },
                   "capacity_people": {
@@ -686,20 +574,12 @@
                         "type": "integer"
                       }
                     },
-                    "x-apidog-orders": [
-                      "max",
-                      "current"
-                    ],
-                    "required": [
-                      "max",
-                      "current"
-                    ],
+                    "x-apidog-orders": ["max", "current"],
+                    "required": ["max", "current"],
                     "x-apidog-ignore-properties": []
                   }
                 },
-                "x-apidog-orders": [
-                  "01H8CHEMF8XG1F7KSDGXTGFJ8X"
-                ],
+                "x-apidog-orders": ["01H8CHEMF8XG1F7KSDGXTGFJ8X"],
                 "required": [
                   "tour_id",
                   "name",
@@ -758,14 +638,8 @@
                           "description": "RFC3339形式で"
                         }
                       },
-                      "x-apidog-orders": [
-                        "first_day",
-                        "last_day"
-                      ],
-                      "required": [
-                        "first_day",
-                        "last_day"
-                      ],
+                      "x-apidog-orders": ["first_day", "last_day"],
+                      "required": ["first_day", "last_day"],
                       "x-apidog-ignore-properties": []
                     },
                     "capacity_people": {
@@ -778,20 +652,12 @@
                           "type": "integer"
                         }
                       },
-                      "x-apidog-orders": [
-                        "max",
-                        "current"
-                      ],
-                      "required": [
-                        "max",
-                        "current"
-                      ],
+                      "x-apidog-orders": ["max", "current"],
+                      "required": ["max", "current"],
                       "x-apidog-ignore-properties": []
                     }
                   },
-                  "x-apidog-orders": [
-                    "01H8CHG86VD7108JM7H9WYMPVE"
-                  ],
+                  "x-apidog-orders": ["01H8CHG86VD7108JM7H9WYMPVE"],
                   "required": [
                     "tour_id",
                     "name",
@@ -831,14 +697,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -857,14 +717,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -880,9 +734,7 @@
         "x-apidog-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "API/booking"
-        ],
+        "tags": ["API/booking"],
         "parameters": [
           {
             "name": "tour_id",
@@ -920,16 +772,8 @@
                         "type": "boolean"
                       }
                     },
-                    "x-apidog-orders": [
-                      "01H8CK5FJEDQGWYG26Z5X7B1EP"
-                    ],
-                    "required": [
-                      "tour_id",
-                      "user_id",
-                      "name",
-                      "age",
-                      "is_man"
-                    ],
+                    "x-apidog-orders": ["01H8CK5FJEDQGWYG26Z5X7B1EP"],
+                    "required": ["tour_id", "user_id", "name", "age", "is_man"],
                     "x-apidog-refs": {
                       "01H8CK5FJEDQGWYG26Z5X7B1EP": {
                         "$ref": "#/components/schemas/customer"
@@ -944,20 +788,14 @@
                     ]
                   }
                 },
-                "x-apidog-orders": [
-                  "01H8CK686P5YQBV1MAJ7QQ1HHW"
-                ],
-                "required": [
-                  "customer_lists"
-                ],
+                "x-apidog-orders": ["01H8CK686P5YQBV1MAJ7QQ1HHW"],
+                "required": ["customer_lists"],
                 "x-apidog-refs": {
                   "01H8CK686P5YQBV1MAJ7QQ1HHW": {
                     "$ref": "#/components/schemas/customers"
                   }
                 },
-                "x-apidog-ignore-properties": [
-                  "customer_lists"
-                ]
+                "x-apidog-ignore-properties": ["customer_lists"]
               }
             }
           }
@@ -990,9 +828,7 @@
                           "type": "boolean"
                         }
                       },
-                      "x-apidog-orders": [
-                        "01H8CK5FJEDQGWYG26Z5X7B1EP"
-                      ],
+                      "x-apidog-orders": ["01H8CK5FJEDQGWYG26Z5X7B1EP"],
                       "required": [
                         "tour_id",
                         "user_id",
@@ -1014,20 +850,14 @@
                       ]
                     }
                   },
-                  "x-apidog-orders": [
-                    "01H8CK6E8Q7P835PF3KKN57AK0"
-                  ],
-                  "required": [
-                    "customer_lists"
-                  ],
+                  "x-apidog-orders": ["01H8CK6E8Q7P835PF3KKN57AK0"],
+                  "required": ["customer_lists"],
                   "x-apidog-refs": {
                     "01H8CK6E8Q7P835PF3KKN57AK0": {
                       "$ref": "#/components/schemas/customers"
                     }
                   },
-                  "x-apidog-ignore-properties": [
-                    "customer_lists"
-                  ]
+                  "x-apidog-ignore-properties": ["customer_lists"]
                 }
               }
             }
@@ -1046,14 +876,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -1072,14 +896,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -1095,9 +913,7 @@
         "x-apidog-status": "developing",
         "deprecated": false,
         "description": "",
-        "tags": [
-          "API/booking"
-        ],
+        "tags": ["API/booking"],
         "parameters": [
           {
             "name": "booking_id",
@@ -1117,12 +933,8 @@
                 "schema": {
                   "type": "object",
                   "properties": {},
-                  "x-apidog-orders": [
-                    "01H8CKFB4RPNR93VJD9YKDA5X0"
-                  ],
-                  "required": [
-                    "01H8CKFB4RPNR93VJD9YKDA5X0"
-                  ],
+                  "x-apidog-orders": ["01H8CKFB4RPNR93VJD9YKDA5X0"],
+                  "required": ["01H8CKFB4RPNR93VJD9YKDA5X0"],
                   "x-apidog-ignore-properties": []
                 }
               }
@@ -1142,14 +954,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -1168,14 +974,8 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "code",
-                    "message"
-                  ],
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ]
+                  "required": ["code", "message"],
+                  "x-apidog-orders": ["code", "message"]
                 }
               }
             }
@@ -1195,14 +995,8 @@
                       "type": "string"
                     }
                   },
-                  "x-apidog-orders": [
-                    "code",
-                    "message"
-                  ],
-                  "required": [
-                    "code",
-                    "message"
-                  ]
+                  "x-apidog-orders": ["code", "message"],
+                  "required": ["code", "message"]
                 }
               }
             }
@@ -1237,16 +1031,8 @@
                 "type": "boolean"
               }
             },
-            "x-apidog-orders": [
-              "01H8CK5FJEDQGWYG26Z5X7B1EP"
-            ],
-            "required": [
-              "tour_id",
-              "user_id",
-              "name",
-              "age",
-              "is_man"
-            ],
+            "x-apidog-orders": ["01H8CK5FJEDQGWYG26Z5X7B1EP"],
+            "required": ["tour_id", "user_id", "name", "age", "is_man"],
             "x-apidog-refs": {
               "01H8CK5FJEDQGWYG26Z5X7B1EP": {
                 "$ref": "#/components/schemas/customer"
@@ -1261,12 +1047,8 @@
             ]
           }
         },
-        "x-apidog-orders": [
-          "customer_lists"
-        ],
-        "required": [
-          "customer_lists"
-        ],
+        "x-apidog-orders": ["customer_lists"],
+        "required": ["customer_lists"],
         "x-apidog-ignore-properties": [],
         "x-apidog-folder": ""
       },
@@ -1290,20 +1072,8 @@
             "type": "boolean"
           }
         },
-        "x-apidog-orders": [
-          "tour_id",
-          "user_id",
-          "name",
-          "age",
-          "is_man"
-        ],
-        "required": [
-          "tour_id",
-          "user_id",
-          "name",
-          "age",
-          "is_man"
-        ],
+        "x-apidog-orders": ["tour_id", "user_id", "name", "age", "is_man"],
+        "required": ["tour_id", "user_id", "name", "age", "is_man"],
         "x-apidog-ignore-properties": [],
         "x-apidog-folder": ""
       },
@@ -1338,14 +1108,8 @@
                     "description": "RFC3339形式で"
                   }
                 },
-                "x-apidog-orders": [
-                  "first_day",
-                  "last_day"
-                ],
-                "required": [
-                  "first_day",
-                  "last_day"
-                ],
+                "x-apidog-orders": ["first_day", "last_day"],
+                "required": ["first_day", "last_day"],
                 "x-apidog-ignore-properties": []
               },
               "capacity_people": {
@@ -1358,20 +1122,12 @@
                     "type": "integer"
                   }
                 },
-                "x-apidog-orders": [
-                  "max",
-                  "current"
-                ],
-                "required": [
-                  "max",
-                  "current"
-                ],
+                "x-apidog-orders": ["max", "current"],
+                "required": ["max", "current"],
                 "x-apidog-ignore-properties": []
               }
             },
-            "x-apidog-orders": [
-              "01H8CFMRC0BW1MABJW28N3A9JK"
-            ],
+            "x-apidog-orders": ["01H8CFMRC0BW1MABJW28N3A9JK"],
             "required": [
               "tour_id",
               "name",
@@ -1395,12 +1151,8 @@
             ]
           }
         },
-        "x-apidog-orders": [
-          "tour_lists"
-        ],
-        "required": [
-          "tour_lists"
-        ],
+        "x-apidog-orders": ["tour_lists"],
+        "required": ["tour_lists"],
         "x-apidog-ignore-properties": [],
         "x-apidog-folder": ""
       },
@@ -1432,14 +1184,8 @@
                 "description": "RFC3339形式で"
               }
             },
-            "x-apidog-orders": [
-              "first_day",
-              "last_day"
-            ],
-            "required": [
-              "first_day",
-              "last_day"
-            ],
+            "x-apidog-orders": ["first_day", "last_day"],
+            "required": ["first_day", "last_day"],
             "x-apidog-ignore-properties": []
           },
           "capacity_people": {
@@ -1452,14 +1198,8 @@
                 "type": "integer"
               }
             },
-            "x-apidog-orders": [
-              "max",
-              "current"
-            ],
-            "required": [
-              "max",
-              "current"
-            ],
+            "x-apidog-orders": ["max", "current"],
+            "required": ["max", "current"],
             "x-apidog-ignore-properties": []
           }
         },
