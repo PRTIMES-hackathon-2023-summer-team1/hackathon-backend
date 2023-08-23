@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/config"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
@@ -11,11 +12,25 @@ import (
 	"gorm.io/gorm"
 )
 
+const (
+	MaxRetry = 50
+	WaitTime = 1
+)
+
 func Connect(postgresInfo *config.PostgresInfo) (*gorm.DB, *sql.DB) {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Tokyo", postgresInfo.Host, postgresInfo.User, postgresInfo.Password, postgresInfo.Database, postgresInfo.Port)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	var err error
+	var db *gorm.DB
+	for i := 0; i < MaxRetry; i++ {
+		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		if err == nil {
+			break
+		}
+		log.Printf("retrying to connect to db: %d", i)
+		time.Sleep(WaitTime * time.Second)
+	}
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("failed to connect to db")
 	}
 	sqlDB, err := db.DB()
 	if err != nil {
@@ -24,6 +39,6 @@ func Connect(postgresInfo *config.PostgresInfo) (*gorm.DB, *sql.DB) {
 	return db, sqlDB
 }
 
-func Migrate(db *gorm.DB){
+func Migrate(db *gorm.DB) {
 	db.AutoMigrate(&models.TestModel{})
 }
