@@ -9,7 +9,6 @@ import (
 	"gorm.io/gorm"
 )
 
-
 func NewRouter(db *gorm.DB) *gin.Engine {
 	g := gin.Default()
 	config := cors.DefaultConfig()
@@ -20,5 +19,11 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	testRepository := repository.NewTestRepository(db)
 	testController := controllers.NewTestController(testRepository)
 	g.POST("/test", testController.Set)
+
+	userRepo := repository.NewUserRepository(db)
+	userController := controllers.NewUserController(userRepo)
+	g.POST("/signup", userController.Signup)
+	g.POST("/login", userController.Login)
+
 	return g
 }
