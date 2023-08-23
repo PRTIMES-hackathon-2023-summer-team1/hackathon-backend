@@ -9,16 +9,23 @@ import (
 	"gorm.io/gorm"
 )
 
-
 func NewRouter(db *gorm.DB) *gin.Engine {
-	g := gin.Default()
+	r := gin.Default()
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"*"}
-	g.Use(cors.New(config))
-	g.Use(middleware.ErrorHandler())
+	r.Use(cors.New(config))
+	r.Use(middleware.ErrorHandler())
 
 	testRepository := repository.NewTestRepository(db)
 	testController := controllers.NewTestController(testRepository)
-	g.POST("/test", testController.Set)
-	return g
+	r.POST("/test", testController.Set)
+
+	tourGroup := r.Group("/tours")
+	{
+		tourRepository := repository.NewTourRepository(db)
+		tourController := controllers.NewTourController(tourRepository)
+		tourGroup.GET("", tourController.GetAll)
+	}
+
+	return r
 }
