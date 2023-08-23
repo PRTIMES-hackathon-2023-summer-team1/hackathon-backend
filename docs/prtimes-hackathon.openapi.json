@@ -31,6 +31,37 @@
           "API"
         ],
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "x-apidog-orders": [
+                  "name",
+                  "email",
+                  "password"
+                ],
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ],
+                "x-apidog-ignore-properties": []
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "成功",
@@ -38,23 +69,48 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "integer"
-                    },
-                    "message": {
-                      "type": "string"
+                  "x-apidog-refs": {
+                    "01H8GKJB46NQZDY57HQ7K6K54Y": {
+                      "$ref": "#/components/schemas/user",
+                      "x-apidog-overrides": {
+                        "password": null
+                      }
                     }
                   },
                   "x-apidog-orders": [
-                    "code",
-                    "message"
+                    "01H8GKJB46NQZDY57HQ7K6K54Y"
                   ],
+                  "properties": {
+                    "user_id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
                   "required": [
-                    "code",
-                    "message"
+                    "user_id",
+                    "name",
+                    "email",
+                    "created_at",
+                    "updated_at"
                   ],
-                  "x-apidog-ignore-properties": []
+                  "x-apidog-ignore-properties": [
+                    "user_id",
+                    "name",
+                    "email",
+                    "created_at",
+                    "updated_at"
+                  ]
                 }
               }
             }
@@ -136,20 +192,15 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "integer"
-                    },
-                    "message": {
+                    "token": {
                       "type": "string"
                     }
                   },
                   "x-apidog-orders": [
-                    "code",
-                    "message"
+                    "token"
                   ],
                   "required": [
-                    "code",
-                    "message"
+                    "token"
                   ],
                   "x-apidog-ignore-properties": []
                 }
@@ -1531,14 +1582,18 @@
       "user": {
         "type": "object",
         "properties": {
-          "uid": {
+          "user_id": {
+            "type": "integer"
+          },
+          "name": {
             "type": "string"
           },
           "email": {
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "description": "暗号化すること"
           },
           "created_at": {
             "type": "string"
@@ -1548,18 +1603,20 @@
           }
         },
         "x-apidog-orders": [
-          "uid",
+          "user_id",
+          "name",
           "email",
           "password",
           "created_at",
           "updated_at"
         ],
         "required": [
-          "uid",
+          "user_id",
           "email",
           "password",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "name"
         ],
         "x-apidog-folder": "",
         "x-apidog-ignore-properties": []
