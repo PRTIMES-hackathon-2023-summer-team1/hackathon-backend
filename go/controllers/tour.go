@@ -56,3 +56,18 @@ func (t TourController) CreateTour(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, tourInfoCreated)
 }
+
+func (t TourController) EditTour(c *gin.Context) {
+	var editedTourInfo models.Tour
+	err := c.ShouldBindJSON(&editedTourInfo)
+	if err != nil {
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+	err = t.tourRepository.EditTour(editedTourInfo)
+	if err != nil {
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, editedTourInfo)
+}

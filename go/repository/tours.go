@@ -11,6 +11,7 @@ type ITourRepository interface {
 	GetAll() (models.Tour, error)
 	Get(string) (models.Tour, error)
 	CreateTour(models.Tour) error
+	EditTour(models.Tour) error
 }
 
 type TourRepository struct {
@@ -56,6 +57,26 @@ func (t TourRepository) CreateTour(to models.Tour) error {
 	_, err = time.Parse(time.RFC3339, to.LastDay.String())
 	to.TourID = uuid.New().String()
 	err = t.repo.Omit("CreatedAt", "UpdatedAt").Create(&to).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t TourRepository) EditTour(to models.Tour) error {
+	//送られてきた時間がRFC3339か確認
+	firstDay := to.FirstDay.Format(time.RFC3339)
+	_, err := time.Parse(time.RFC3339, firstDay)
+	if err != nil {
+		return err
+	}
+
+	lastDay := to.FirstDay.Format(time.RFC3339)
+	_, err = time.Parse(time.RFC3339, lastDay)
+	if err != nil {
+		return err
+	}
+	err = t.repo.First(&to, "tour_id = ?", to.TourID).Error
 	if err != nil {
 		return err
 	}

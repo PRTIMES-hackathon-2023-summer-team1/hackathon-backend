@@ -30,6 +30,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 
 		//ツアー情報操作系
 		tourGroup.POST("", tourController.CreateTour)
+		tourGroup.PUT("", tourController.EditTour)
 	}
 
 	return r
