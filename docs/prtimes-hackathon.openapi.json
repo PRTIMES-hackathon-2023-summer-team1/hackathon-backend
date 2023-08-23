@@ -390,7 +390,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "tour_id": {
+                  "user_id": {
                     "type": "integer"
                   },
                   "name": {
@@ -457,7 +457,7 @@
                   }
                 },
                 "required": [
-                  "tour_id",
+                  "user_id",
                   "name",
                   "description",
                   "body",
@@ -466,7 +466,7 @@
                   "capacity_people"
                 ],
                 "x-apidog-ignore-properties": [
-                  "tour_id",
+                  "user_id",
                   "name",
                   "description",
                   "body",
@@ -488,6 +488,9 @@
                   "type": "object",
                   "properties": {
                     "tour_id": {
+                      "type": "integer"
+                    },
+                    "user_id": {
                       "type": "integer"
                     },
                     "name": {
@@ -556,6 +559,7 @@
                   "description": "POSTはリクエスト内容を返すのが一般的らしいので",
                   "required": [
                     "tour_id",
+                    "user_id",
                     "name",
                     "description",
                     "body",
@@ -565,6 +569,7 @@
                   ],
                   "x-apidog-ignore-properties": [
                     "tour_id",
+                    "user_id",
                     "name",
                     "description",
                     "body",
@@ -667,6 +672,9 @@
                     "tour_id": {
                       "type": "integer"
                     },
+                    "user_id": {
+                      "type": "integer"
+                    },
                     "name": {
                       "type": "string"
                     },
@@ -732,6 +740,7 @@
                   },
                   "required": [
                     "tour_id",
+                    "user_id",
                     "name",
                     "description",
                     "body",
@@ -741,6 +750,7 @@
                   ],
                   "x-apidog-ignore-properties": [
                     "tour_id",
+                    "user_id",
                     "name",
                     "description",
                     "body",
@@ -893,6 +903,9 @@
                   "tour_id": {
                     "type": "integer"
                   },
+                  "user_id": {
+                    "type": "integer"
+                  },
                   "name": {
                     "type": "string"
                   },
@@ -958,6 +971,7 @@
                 },
                 "required": [
                   "tour_id",
+                  "user_id",
                   "name",
                   "description",
                   "body",
@@ -967,6 +981,7 @@
                 ],
                 "x-apidog-ignore-properties": [
                   "tour_id",
+                  "user_id",
                   "name",
                   "description",
                   "body",
@@ -988,6 +1003,9 @@
                   "type": "object",
                   "properties": {
                     "tour_id": {
+                      "type": "integer"
+                    },
+                    "user_id": {
                       "type": "integer"
                     },
                     "name": {
@@ -1055,6 +1073,7 @@
                   },
                   "required": [
                     "tour_id",
+                    "user_id",
                     "name",
                     "description",
                     "body",
@@ -1064,6 +1083,7 @@
                   ],
                   "x-apidog-ignore-properties": [
                     "tour_id",
+                    "user_id",
                     "name",
                     "description",
                     "body",
@@ -1678,6 +1698,9 @@
           "tour_id": {
             "type": "integer"
           },
+          "user_id": {
+            "type": "integer"
+          },
           "name": {
             "type": "string"
           },
@@ -1735,6 +1758,7 @@
         },
         "x-apidog-orders": [
           "tour_id",
+          "user_id",
           "name",
           "description",
           "body",
@@ -1749,7 +1773,8 @@
           "dates",
           "capacity_people",
           "body",
-          "tour_id"
+          "tour_id",
+          "user_id"
         ],
         "x-apidog-folder": "",
         "x-apidog-ignore-properties": []
