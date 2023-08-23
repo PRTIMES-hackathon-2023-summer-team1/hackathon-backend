@@ -8,8 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
-type TestController struct{
+type TestController struct {
 	testModelRepository repository.ITestRepository
 }
 

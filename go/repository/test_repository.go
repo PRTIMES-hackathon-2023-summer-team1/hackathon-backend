@@ -5,12 +5,11 @@ import (
 	"gorm.io/gorm"
 )
 
-
 type ITestRepository interface {
 	Set(t models.TestModel) error
 }
 
-type TestRepository struct{
+type TestRepository struct {
 	repo *gorm.DB
 }
 
@@ -20,9 +19,5 @@ func NewTestRepository(repo *gorm.DB) *TestRepository {
 
 func (t TestRepository) Set(testInfo models.TestModel) error {
 	err := t.repo.Create(&testInfo).Error
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
-
