@@ -5,7 +5,7 @@ import (
 )
 
 func Migrate(db *gorm.DB) {
-	db.AutoMigrate(&TestModel{})
+	db.AutoMigrate(&TestModel{}, &User{}, &Booking{}, &Tour{})
 }
 
 func InsertDummyData(db *gorm.DB) {
