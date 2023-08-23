@@ -2,8 +2,10 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
+	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/repository"
 	"github.com/gin-gonic/gin"
 )
@@ -39,4 +41,20 @@ func (t TourController) Get(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, tourInfo)
 	return
+}
+
+func (t TourController) CreateTour(c *gin.Context) {
+	var tourInfoCreated models.Tour
+	err := c.ShouldBindJSON(&tourInfoCreated)
+	fmt.Println(tourInfoCreated)
+	if err != nil {
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+	err = t.tourRepository.CreateTour(tourInfoCreated)
+	if err != nil {
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, tourInfoCreated)
 }
