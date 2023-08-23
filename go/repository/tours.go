@@ -4,6 +4,7 @@ import (
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"time"
 )
 
 type ITourRepository interface {
@@ -39,18 +40,22 @@ func (t TourRepository) Get(tourId string) (models.Tour, error) {
 }
 
 func (t TourRepository) CreateTour(to models.Tour) error {
-	//newUUID := uuid.New()
-	//送られてきた時間形式がRFC3339かバリデーションを行う
-	//	_, err := time.Parse(time.RFC3339, strings.Join(strings.Fields(to.FirstDay.String()), ""))
-	//	if err != nil {
-	//		return err
-	//	}
-	//	_, err = time.Parse(time.RFC3339, strings.Join(strings.Fields(to.LastDay.String()), ""))
-	//	if err != nil {
-	//		return err
-	//	}
+	//送られてきた時間がRFC3339か確認
+	firstDay := to.FirstDay.Format(time.RFC3339)
+	_, err := time.Parse(time.RFC3339, firstDay)
+	if err != nil {
+		return err
+	}
+
+	lastDay := to.FirstDay.Format(time.RFC3339)
+	_, err = time.Parse(time.RFC3339, lastDay)
+	if err != nil {
+		return err
+	}
+
+	_, err = time.Parse(time.RFC3339, to.LastDay.String())
 	to.TourID = uuid.New().String()
-	err := t.repo.Omit("CreatedAt", "UpdatedAt").Create(&to).Error
+	err = t.repo.Omit("CreatedAt", "UpdatedAt").Create(&to).Error
 	if err != nil {
 		return err
 	}
