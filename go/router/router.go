@@ -43,7 +43,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		// ツアー予約の投稿
 		bookingGroup.POST("", middleware.JWTAuthHandler(), bookingController.PostBooking)
 		// ツアー予約の取得
-		bookingGroup.GET("/:userID", middleware.JWTAuthHandler(), bookingController.GetBookingByUserID)
+		bookingGroup.GET("", middleware.JWTAuthHandler(), bookingController.GetBookingByUserID)
 		// ツアー予約の削除
 		bookingGroup.DELETE("/:bookingID", middleware.JWTAuthHandler(), bookingController.DeleteBooking)
 	}
