@@ -23,7 +23,8 @@ type Tour struct {
 }
 
 func NewDummyTour(userID string, isVisible bool, faker *faker.Faker) *Tour {
-	firstDay := faker.Time().Time(time.Now().AddDate(0, 0, 1))
+	jst, _ := time.LoadLocation("Asia/Tokyo")
+	firstDay := faker.Time().Time(time.Now().AddDate(0, 0, 1)).In(jst)
 	return &Tour{
 		TourID:          faker.UUID().V4(),
 		UserID:          userID,
