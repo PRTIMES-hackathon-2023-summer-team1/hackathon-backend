@@ -36,7 +36,7 @@ func (b BookingController) PostBooking(c *gin.Context) {
 	}
 
 	//userが存在するか確認
-	_, err = b.userModelRepository.Read(booking.UserID)
+	_, err = b.userModelRepository.ReadByID(booking.UserID)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusNotFound, err.Error()})
 		return

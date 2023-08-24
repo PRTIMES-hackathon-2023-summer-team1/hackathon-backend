@@ -62,6 +62,13 @@ func (t UserController) Login(c *gin.Context) {
 		return
 	}
 
+	// emailをチェック
+	if registered.Email != user.Email {
+		err := errors.New("email incorrect")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
 	// パスワードをチェック
 	if !utility.IsValidPassword(registered.Password, user.Password) {
 		err := errors.New("password incorrect")
