@@ -89,8 +89,14 @@ func (t UserController) Login(c *gin.Context) {
 }
 
 func (t UserController) IsAdmin(c *gin.Context) {
-	userId := c.Query("user-id")
-	authority, err := t.userModelRepository.IsAdmin(userId)
+	userID := c.GetString("userID")
+	if userID == "" {
+		err := errors.New("userId is empty")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
+	authority, err := t.userModelRepository.IsAdmin(userID)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
