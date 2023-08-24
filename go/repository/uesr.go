@@ -8,6 +8,7 @@ import (
 type IUserRepository interface {
 	Create(u models.User) error
 	Read(id string) (*models.User, error)
+	IsAdmin(string) (bool, error)
 }
 
 type UserRepository struct {
@@ -30,4 +31,16 @@ func (t UserRepository) Read(id string) (*models.User, error) {
 		return nil, result.Error
 	}
 	return user, nil
+}
+
+func (t UserRepository) IsAdmin(userId string) (bool, error) {
+	var user models.User
+	err := t.repo.Where("user_id = ?", userId).First(&user).Error
+	if err != nil {
+		return false, err
+	}
+	if !user.IsAdmin {
+		return false, nil
+	}
+	return true, nil
 }
