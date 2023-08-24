@@ -2,14 +2,13 @@ package repository
 
 import (
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type IUserRepository interface {
 	Create(u models.User) error
 	Read(id string) (*models.User, error)
-	IsAdmin(string) (bool, error)
+	IsAdmin(userId string) (bool, error)
 }
 
 type UserRepository struct {
@@ -21,7 +20,6 @@ func NewUserRepository(repo *gorm.DB) *UserRepository {
 }
 
 func (t UserRepository) Create(u models.User) error {
-	u.UserID = uuid.New().String() // UserIDはUUIDで生成
 	result := t.repo.Create(&u)
 	return result.Error
 }
@@ -42,7 +40,7 @@ func (t UserRepository) IsAdmin(userId string) (bool, error) {
 		return false, err
 	}
 	if !user.IsAdmin {
-		return false, nil
+		return user.IsAdmin, nil
 	}
 	return true, nil
 }
