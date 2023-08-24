@@ -58,7 +58,8 @@
                   "password"
                 ],
                 "x-apidog-ignore-properties": []
-              }
+              },
+              "example": ""
             }
           }
         },
@@ -82,7 +83,7 @@
                   ],
                   "properties": {
                     "user_id": {
-                      "type": "integer"
+                      "type": "string"
                     },
                     "name": {
                       "type": "string"
@@ -390,6 +391,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "tour_id": {
+                    "type": "integer"
+                  },
                   "user_id": {
                     "type": "integer"
                   },
@@ -457,6 +461,7 @@
                   }
                 },
                 "required": [
+                  "tour_id",
                   "user_id",
                   "name",
                   "description",
@@ -466,6 +471,7 @@
                   "capacity_people"
                 ],
                 "x-apidog-ignore-properties": [
+                  "tour_id",
                   "user_id",
                   "name",
                   "description",
@@ -1207,7 +1213,7 @@
         "x-run-in-apidog": "https://apidog.com/web/project/381088/apis/api-4113701-run"
       }
     },
-    "/tours/{tour_id}/bookings": {
+    "/bookings": {
       "post": {
         "summary": "予約作成",
         "x-apidog-folder": "API/booking",
@@ -1217,33 +1223,33 @@
         "tags": [
           "API/booking"
         ],
-        "parameters": [
-          {
-            "name": "tour_id",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "example": "",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "properties": {},
-                "x-apidog-orders": [
-                  "01H8CK686P5YQBV1MAJ7QQ1HHW"
-                ],
-                "x-apidog-refs": {
-                  "01H8CK686P5YQBV1MAJ7QQ1HHW": {
-                    "type": "object",
-                    "properties": {}
+                "properties": {
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "tour_id": {
+                    "type": "string"
+                  },
+                  "participants": {
+                    "type": "integer"
                   }
                 },
+                "x-apidog-orders": [
+                  "user_id",
+                  "tour_id",
+                  "participants"
+                ],
+                "required": [
+                  "user_id",
+                  "tour_id",
+                  "participants"
+                ],
                 "x-apidog-ignore-properties": []
               },
               "example": ""
@@ -1256,18 +1262,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {},
-                  "x-apidog-orders": [
-                    "01H8CK6E8Q7P835PF3KKN57AK0"
-                  ],
-                  "x-apidog-refs": {
-                    "01H8CK6E8Q7P835PF3KKN57AK0": {
-                      "type": "object",
-                      "properties": {}
-                    }
-                  },
-                  "x-apidog-ignore-properties": []
+                  "$ref": "#/components/schemas/booking"
                 }
               }
             }
@@ -1560,7 +1555,8 @@
                   "is_admin"
                 ],
                 "x-apidog-ignore-properties": []
-              }
+              },
+              "example": ""
             }
           }
         },
@@ -1603,7 +1599,7 @@
         "type": "object",
         "properties": {
           "user_id": {
-            "type": "integer"
+            "type": "string"
           },
           "name": {
             "type": "string"
@@ -1645,27 +1641,15 @@
         "type": "object",
         "properties": {
           "booking_id": {
-            "type": "integer"
+            "type": "string"
           },
           "user_id": {
-            "type": "integer"
+            "type": "string"
           },
           "tour_id": {
-            "type": "integer"
+            "type": "string"
           },
           "participants": {
-            "type": "integer"
-          },
-          "men": {
-            "type": "integer"
-          },
-          "women": {
-            "type": "integer"
-          },
-          "adults": {
-            "type": "integer"
-          },
-          "children": {
             "type": "integer"
           }
         },
@@ -1673,20 +1657,12 @@
           "booking_id",
           "user_id",
           "tour_id",
-          "participants",
-          "men",
-          "women",
-          "adults",
-          "children"
+          "participants"
         ],
         "required": [
           "user_id",
           "tour_id",
           "participants",
-          "men",
-          "women",
-          "adults",
-          "children",
           "booking_id"
         ],
         "x-apidog-folder": "",
