@@ -26,7 +26,7 @@ func (t UserRepository) Create(u models.User) error {
 
 func (t UserRepository) Read(id string) (*models.User, error) {
 	user := &models.User{}
-	result := t.repo.First(user, id)
+	result := t.repo.Where("user_id = ?", id).First(&user)
 	if result.Error != nil {
 		return nil, result.Error
 	}

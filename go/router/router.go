@@ -17,16 +17,13 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	r.Use(cors.New(config))
 	r.Use(middleware.ErrorHandler())
 
-	testRepository := repository.NewTestRepository(db)
 	tourRepository := repository.NewTourRepository(db)
 	userRepository := repository.NewUserRepository(db)
 	bookingRepository := repository.NewBookingRepository(db)
-	testController := controllers.NewTestController(testRepository)
 	tourController := controllers.NewTourController(tourRepository)
 	userController := controllers.NewUserController(userRepository)
 	bookingController := controllers.NewBookingController(bookingRepository, tourRepository, userRepository)
 
-	r.POST("/test", testController.Set)
 	tourGroup := r.Group("/tours")
 	{
 		//ツアー情報閲覧系
@@ -44,7 +41,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	bookingGroup := r.Group("/booking")
 	{
 		// ツアー予約の投稿
-		bookingGroup.POST("/:tourID", bookingController.PostBooking)
+		bookingGroup.POST("/", bookingController.PostBooking)
 		// ツアー予約の取得
 		bookingGroup.GET("/:userID", bookingController.GetBookingByUserID)
 		// ツアー予約の削除
