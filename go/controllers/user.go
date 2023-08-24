@@ -5,6 +5,7 @@ import (
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/repository"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	"net/http"
 )
 
 type UserController struct {
@@ -39,8 +40,7 @@ func (t UserController) Signup(c *gin.Context) {
 	// unmarshall
 	err := c.ShouldBindJSON(user)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+		c.JSON(http.StatusBadRequest, "")
 		return
 	}
 
@@ -50,12 +50,11 @@ func (t UserController) Signup(c *gin.Context) {
 	// データの挿入
 	err = t.userModelRepository.Create(*user)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+		c.JSON(http.StatusBadRequest, "")
 		return
 	}
 
-	c.JSON(200, "")
+	c.JSON(http.StatusOK, "")
 }
 
 /* 認証方法未決定, 未実装 */
@@ -65,8 +64,7 @@ func (t UserController) Login(c *gin.Context) {
 	// unmarshall
 	err := c.ShouldBindJSON(user)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+		c.JSON(http.StatusBadRequest, "")
 		return
 	}
 
@@ -74,17 +72,15 @@ func (t UserController) Login(c *gin.Context) {
 	registered := &models.User{}
 	registered, err = t.userModelRepository.Read(user.UserID)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+		c.JSON(http.StatusBadRequest, "")
 		return
 	}
 
-	// パスワードのハッシュをチェック
-	if !checkPassword(user.Password, registered.Password) {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+	// パスワードをチェック
+	if !checkPassword(registered.Password, user.Password) {
+		c.JSON(http.StatusBadRequest, "")
 		return
 	}
 
-	c.JSON(200, "")
+	c.JSON(http.StatusOK, "")
 }
