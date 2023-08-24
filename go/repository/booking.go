@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"time"
-
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"gorm.io/gorm"
 )
@@ -10,7 +8,7 @@ import (
 type IBookingRepository interface {
 	Set(booking *models.Booking) error
 	Delete(bookingID string) error
-	ReadByUserID(userID string) ([]*BookingJoinTour, error)
+	ReadByUserID(userID string) ([]*models.BookingJoinTour, error)
 	ReadByBookingID(bookingID string) (*models.Booking, error)
 }
 
@@ -84,20 +82,8 @@ func (b BookingRepository) Delete(bookingID string) error {
 	return err
 }
 
-
-type BookingJoinTour struct {
-	BookingID 		 		string    `gorm:"primaryKey" json:"booking_id"`
-	TourID            string    `gorm:"not null" json:"tour_id"`
-	UserID 						string    `gorm:"not null" json:"user_id"`
-	Name 					    string    `gorm:"not null" json:"name"`
-	Participants      int       `gorm:"not null" json:"participants"`
-	Price 					  int       `gorm:"not null" json:"price"`
-	FirstDay          time.Time `gorm:"not null" json:"first_day"`
-	LastDay           time.Time `gorm:"not null" json:"last_day"`
-}
-
-func (b BookingRepository) ReadByUserID(userID string) ( []*BookingJoinTour, error) {
-	var bookingJoinTour []*BookingJoinTour
+func (b BookingRepository) ReadByUserID(userID string) ( []*models.BookingJoinTour, error) {
+	var bookingJoinTour []*models.BookingJoinTour
 	err := b.repo.Model(&models.Booking{}).Select("bookings.booking_id, bookings.tour_id, bookings.user_id, tours.name, bookings.participants, tours.price, tours.first_day, tours.last_day").Joins("left join tours on bookings.tour_id = tours.tour_id").Where("bookings.user_id = ?", userID).Find(&bookingJoinTour).Error
 	return bookingJoinTour, err
 }
