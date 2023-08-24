@@ -17,16 +17,13 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	r.Use(cors.New(config))
 	r.Use(middleware.ErrorHandler())
 
-	testRepository := repository.NewTestRepository(db)
 	tourRepository := repository.NewTourRepository(db)
 	userRepository := repository.NewUserRepository(db)
 	bookingRepository := repository.NewBookingRepository(db)
-	testController := controllers.NewTestController(testRepository)
 	tourController := controllers.NewTourController(tourRepository)
 	userController := controllers.NewUserController(userRepository)
 	bookingController := controllers.NewBookingController(bookingRepository, tourRepository, userRepository)
 
-	r.POST("/test", testController.Set)
 	tourGroup := r.Group("/tours")
 	{
 		//ツアー情報閲覧系
