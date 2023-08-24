@@ -5,6 +5,8 @@ import (
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/repository"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/utility"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
+	"net/http"
 )
 
 type UserController struct {
@@ -21,8 +23,7 @@ func (t UserController) Signup(c *gin.Context) {
 	// unmarshall
 	err := c.ShouldBindJSON(user)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
@@ -32,12 +33,11 @@ func (t UserController) Signup(c *gin.Context) {
 	// データの挿入
 	err = t.userModelRepository.Create(*user)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
-	c.JSON(200, "")
+	c.JSON(http.StatusOK, "")
 }
 
 /* 認証方法未決定, 未実装 */
@@ -47,8 +47,7 @@ func (t UserController) Login(c *gin.Context) {
 	// unmarshall
 	err := c.ShouldBindJSON(user)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
@@ -56,17 +55,15 @@ func (t UserController) Login(c *gin.Context) {
 	registered := &models.User{}
 	registered, err = t.userModelRepository.Read(user.UserID)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
-	// パスワードのハッシュをチェック
-	if !utility.IsValidPassword(registered.Password, user.Password) {
-		c.Error(err).SetType(gin.ErrorTypePublic)
-		c.JSON(400, "")
+	// パスワードをチェック
+	if !checkPassword(registered.Password, user.Password) {
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
-	c.JSON(200, "")
+	c.JSON(http.StatusOK, "")
 }
