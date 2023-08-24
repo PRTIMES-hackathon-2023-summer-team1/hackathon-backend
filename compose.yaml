@@ -24,7 +24,10 @@ services:
     env_file:
       - build/dev.env
     volumes:
-      - ./build/postgres/data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
       - ./build/postgres/init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
+
+volumes:
+  pgdata:
