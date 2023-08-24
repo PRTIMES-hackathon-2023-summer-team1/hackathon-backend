@@ -26,9 +26,6 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 
 	tourGroup := r.Group("/tours")
 	{
-		//ツアー情報閲覧系
-		tourGroup.GET("", tourController.GetAllTours)
-		tourGroup.GET("/:tour_id", tourController.GetTour)
 
 		//ツアー情報操作系
 		tourGroup.POST("", tourController.CreateTour)
@@ -36,6 +33,10 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 
 		//ツアー情報検索
 		tourGroup.GET("/search", tourController.SearchTour)
+
+		//ツアー情報閲覧系
+		tourGroup.GET("", tourController.GetAllTours)
+		tourGroup.GET("/:tour_id", tourController.GetTour)
 	}
 
 	bookingGroup := r.Group("/booking")

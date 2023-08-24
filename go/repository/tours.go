@@ -113,7 +113,6 @@ func (t TourRepository) SearchTour(keyword string) ([]models.Tour, error) {
 	}
 
 	var tours []models.Tour
-	fmt.Println(values...)
 	err = t.repo.Where(condition, values...).Find(&tours).Error
 	if err != nil {
 		return nil, err
