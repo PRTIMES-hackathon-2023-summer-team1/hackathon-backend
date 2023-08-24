@@ -59,7 +59,7 @@ func (b BookingController) PostBooking(c *gin.Context) {
 	}
 
 	// participantsが1以上か確認
-	if booking.Participants >= 1 {
+	if booking.Participants < 1 {
 		err := errors.New("participants is less than 1")
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
