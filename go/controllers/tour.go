@@ -3,7 +3,6 @@ package controllers
 import (
 	"errors"
 	"net/http"
-	"net/url"
 
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/repository"
@@ -74,7 +73,7 @@ func (t TourController) EditTour(c *gin.Context) {
 }
 
 func (t TourController) SearchTour(c *gin.Context) {
-	keyword := c.Query("word")
+	keyword := c.Query("keyword")
 	result, err := t.tourRepository.SearchTour(keyword)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})

@@ -1,13 +1,13 @@
 package repository
 
 import (
+	"fmt"
 	"net/url"
 	"strings"
 	"time"
 
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"github.com/google/uuid"
-	"google.golang.org/genproto/googleapis/devtools/resultstore/v2"
 	"gorm.io/gorm"
 )
 
@@ -102,17 +102,18 @@ func (t TourRepository) SearchTour(keyword string) ([]models.Tour, error) {
 	if err != nil {
 		return nil, err
 	}
-	keywords := strings.Split(parsedKeyword, "")
-
-	condition := "name LIKE ?"
+	middleKeywords := strings.Replace(parsedKeyword, "　", " ", -1)
+	keywords := strings.Split(middleKeywords, " ")
+	condition := "body LIKE ?"
 	values := []interface{}{"%" + keywords[0] + "%"}
 
 	for i := 1; i < len(keywords); i++ {
-		condition += " AND name LIKE ?"
+		condition += " AND body LIKE ?"
 		values = append(values, "%"+keywords[i]+"%")
 	}
 
 	var tours []models.Tour
+	fmt.Println(values...)
 	err = t.repo.Where(condition, values...).Find(&tours).Error
 	if err != nil {
 		return nil, err
