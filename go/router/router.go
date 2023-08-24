@@ -47,8 +47,13 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		// ツアー予約の削除
 		bookingGroup.DELETE("/:bookingID", bookingController.DeleteBooking)
 	}
-	r.POST("/signup", userController.Signup)
-	r.POST("/login", userController.Login)
+
+	userGroup := r.Group("/users")
+	{
+		userGroup.POST("/signup", userController.Signup)
+		userGroup.POST("/login", userController.Login)
+		userGroup.GET("/is_admin", userController.IsAdmin)
+	}
 
 	return r
 }
