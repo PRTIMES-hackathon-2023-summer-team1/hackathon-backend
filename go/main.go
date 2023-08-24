@@ -17,7 +17,6 @@ func main() {
 	models.Drop(repo)
 	models.Migrate(repo)
 	models.InsertDummyData(repo)
-	
 
 	r := router.NewRouter(repo)
 	r.Run(":8080")

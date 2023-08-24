@@ -56,8 +56,15 @@ func (t UserController) Login(c *gin.Context) {
 
 	// userIDを用いて登録されたユーザ情報を取得
 	registered := &models.User{}
-	registered, err = t.userModelRepository.Read(user.UserID)
+	registered, err = t.userModelRepository.ReadByEmail(user.Email)
 	if err != nil {
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
+	// emailをチェック
+	if registered.Email != user.Email {
+		err := errors.New("email incorrect")
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}

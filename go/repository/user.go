@@ -7,7 +7,8 @@ import (
 
 type IUserRepository interface {
 	Create(u models.User) error
-	Read(id string) (*models.User, error)
+	ReadByID(id string) (*models.User, error)
+	ReadByEmail(email string) (*models.User, error)
 	IsAdmin(userId string) (bool, error)
 }
 
@@ -24,9 +25,18 @@ func (t UserRepository) Create(u models.User) error {
 	return result.Error
 }
 
-func (t UserRepository) Read(id string) (*models.User, error) {
+func (t UserRepository) ReadByID(id string) (*models.User, error) {
 	user := &models.User{}
 	result := t.repo.Where("user_id = ?", id).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return user, nil
+}
+
+func (t UserRepository) ReadByEmail(email string) (*models.User, error) {
+	user := &models.User{}
+	result := t.repo.Where("email = ?", email).First(user)
 	if result.Error != nil {
 		return nil, result.Error
 	}
