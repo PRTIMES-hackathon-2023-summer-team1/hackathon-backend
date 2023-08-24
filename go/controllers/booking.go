@@ -28,6 +28,7 @@ func (b BookingController) PostBooking(c *gin.Context) {
 		return
 	}
 
+	// get userID from context
 	userID, ok := c.Get("userID")
 	if !ok {
 		err := errors.New("userID is empty")
