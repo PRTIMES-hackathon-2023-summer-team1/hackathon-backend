@@ -33,13 +33,10 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		tourGroup.PUT("", tourController.EditTour)
 	}
 
-	return r
-	g.POST("/test", testController.Set)
-
 	userRepo := repository.NewUserRepository(db)
 	userController := controllers.NewUserController(userRepo)
-	g.POST("/signup", userController.Signup)
-	g.POST("/login", userController.Login)
+	r.POST("/signup", userController.Signup)
+	r.POST("/login", userController.Login)
 
-	return g
+	return r
 }
