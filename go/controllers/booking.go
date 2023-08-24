@@ -35,7 +35,14 @@ func (b BookingController) PostBooking(c *gin.Context) {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
-	booking.UserID = userID.(string)
+	stringUserID, ok := userID.(string)
+	if !ok {
+		err := errors.New("userID is not string")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
+	booking.UserID = stringUserID
 
 	//tourが存在するか確認
 	_, err = b.tourModelRepository.GetTour(booking.TourID)
@@ -78,9 +85,30 @@ func (b BookingController) DeleteBooking(c *gin.Context) {
 	}
 
 	// bookingが存在するか確認
-	_, err := b.bookingModelRepository.ReadByBookingID(bookingID)
+	booking, err := b.bookingModelRepository.ReadByBookingID(bookingID)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusNotFound, err.Error()})
+		return
+	}
+
+	// get userID from context
+	userID, ok := c.Get("userID")
+	if !ok {
+		err := errors.New("userID is empty")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+	stringUserID, ok := userID.(string)
+	if !ok {
+		err := errors.New("userID is not string")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
+	// bookingのuserIDとcontextのuserIDが一致するか確認
+	if booking.UserID != stringUserID {
+		err := errors.New("userID is not match")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
@@ -94,8 +122,22 @@ func (b BookingController) DeleteBooking(c *gin.Context) {
 }
 
 func (b BookingController) GetBookingByUserID(c *gin.Context) {
-	userID := c.Param("userID")
-	bookInfo, err := b.bookingModelRepository.ReadByUserID(userID)
+	// get userID from context
+	userID, ok := c.Get("userID")
+	if !ok {
+		err := errors.New("userID is empty")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
+	stringUserID, ok := userID.(string)
+	if !ok {
+		err := errors.New("userID is not string")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
+	bookInfo, err := b.bookingModelRepository.ReadByUserID(stringUserID)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusNotFound, err.Error()})
 		return
