@@ -49,7 +49,7 @@ func (t TourController) CreateTour(c *gin.Context) {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
-	err = t.tourRepository.CreateTour(tourInfoCreated)
+	err = t.tourRepository.CreateTour(&tourInfoCreated)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return

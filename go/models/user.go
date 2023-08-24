@@ -2,6 +2,9 @@ package models
 
 import (
 	"time"
+
+	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/utility"
+	"github.com/jaswdr/faker"
 )
 
 type User struct {
@@ -12,4 +15,15 @@ type User struct {
 	IsAdmin   bool      `json:"is_admin"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+}
+
+func NewDummyUser(isAdmin bool, faker *faker.Faker) *User {
+	encryptedPassword, _ := utility.EncryptPassword(faker.Internet().Password())
+	return &User{
+		UserID:   faker.UUID().V4(),
+		Name:     faker.Person().Name(),
+		Email:    faker.Internet().Email(),
+		Password: encryptedPassword,
+		IsAdmin:  isAdmin,
+	}
 }

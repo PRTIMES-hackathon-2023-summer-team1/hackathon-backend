@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/repository"
+	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/utility"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
@@ -16,24 +17,6 @@ func NewUserController(repo repository.IUserRepository) *UserController {
 	return &UserController{userModelRepository: repo}
 }
 
-// passwordEncrypt パスワードを受け取り、ハッシュとエラーを返す
-func passwordEncrypt(password string) (string, error) {
-	if hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost); err != nil {
-		return "", err
-	} else {
-		return string(hash), nil
-	}
-}
-
-// ハッシュとパスワードが正しいかチェックする
-func checkPassword(hashed, password string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(hashed), []byte(password))
-	if err != nil {
-		return false
-	}
-	return true
-}
-
 func (t UserController) Signup(c *gin.Context) {
 	user := &models.User{}
 
@@ -45,7 +28,7 @@ func (t UserController) Signup(c *gin.Context) {
 	}
 
 	// パスワードのハッシュ化(by bcrypt)
-	user.Password, err = passwordEncrypt(user.Password)
+	user.Password, err = utility.EncryptPassword(user.Password)
 
 	// データの挿入
 	err = t.userModelRepository.Create(*user)
