@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/repository"
@@ -76,6 +75,5 @@ func (t UserController) IsAdmin(c *gin.Context) {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
-	convertedAuthority := strconv.FormatBool(authority)
-	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "authority": convertedAuthority})
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "authority": authority})
 }
