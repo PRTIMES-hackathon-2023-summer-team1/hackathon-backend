@@ -39,8 +39,5 @@ func (t UserRepository) IsAdmin(userId string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if !user.IsAdmin {
-		return user.IsAdmin, nil
-	}
-	return true, nil
+	return user.IsAdmin, nil
 }
