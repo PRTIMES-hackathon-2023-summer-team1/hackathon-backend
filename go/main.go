@@ -13,7 +13,7 @@ func main() {
 	defer sqlDB.Close()
 	models.Drop(repo)
 	models.Migrate(repo)
-	models.InsertDummyDatas(repo)
+	models.InsertDummyData(repo)
 
 	r := router.NewRouter(repo)
 	r.Run(":8080")
