@@ -1,3 +1,6 @@
 services:
   app:
     command: sleep infinity
+    volumes:
+      - ../hackathon-backend:/go/src/app
+    working_dir: /go/src/app/go
