@@ -1,8 +1,11 @@
 services:
   app:
+    container_name: app
     build:
       context: .
       dockerfile: build/go/Dockerfile
+    env_file:
+      - build/dev.env
     volumes:
       - ./go:/go/src/app
     stdin_open: true
@@ -10,4 +13,18 @@ services:
     ports:
       - "8080:8080"
     working_dir: /go/src/app
-    command: go run main.go
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    build:
+      context: .
+      dockerfile: build/postgres/Dockerfile
+    env_file:
+      - build/dev.env
+    volumes:
+      - ./build/postgres/data:/var/lib/postgresql/data
+      - ./build/postgres/init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
