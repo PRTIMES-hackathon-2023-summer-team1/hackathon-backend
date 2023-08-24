@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"log"
 	"net/http"
 
@@ -25,21 +26,21 @@ func (b BookingController) PostBooking(c *gin.Context) {
 	err := c.ShouldBindJSON(&booking)
 	log.Printf("%+v", booking)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{})
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
 	//tourが存在するか確認
 	_, err = b.tourModelRepository.GetTour(booking.TourID)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{})
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusNotFound, err.Error()})
 		return
 	}
 
 	//userが存在するか確認
 	_, err = b.userModelRepository.Read(booking.UserID)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{})
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusNotFound, err.Error()})
 		return
 	}
 
@@ -47,7 +48,8 @@ func (b BookingController) PostBooking(c *gin.Context) {
 	booking.BookingID = UUID
 	err = b.bookingModelRepository.Set(&booking)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{})
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusInternalServerError, err.Error()})
+		return
 	}
 	c.JSON(http.StatusOK, gin.H{})
 }
@@ -55,29 +57,30 @@ func (b BookingController) PostBooking(c *gin.Context) {
 func (b BookingController) DeleteBooking(c *gin.Context) {
 	bookingID := c.Param("bookingID")
 	if bookingID == "" {
-		c.JSON(http.StatusBadRequest, gin.H{})
+		err := errors.New("bookingID is empty")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
 	_, err := b.bookingModelRepository.ReadByBookingID(bookingID)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{})
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusNotFound, err.Error()})
 		return
 	}
 
 	err = b.bookingModelRepository.Delete(bookingID)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{})
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusInternalServerError, err.Error()})
 		return
 	}
 	c.JSON(http.StatusNoContent, gin.H{})
 }
 
 func (b BookingController) GetBookingByUserID(c *gin.Context) {
-	bookingID := c.Param("userID")
-	bookInfo, err := b.bookingModelRepository.ReadByUserID(bookingID)
+	userID := c.Param("userID")
+	bookInfo, err := b.bookingModelRepository.ReadByUserID(userID)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusNotFound, err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, bookInfo)
