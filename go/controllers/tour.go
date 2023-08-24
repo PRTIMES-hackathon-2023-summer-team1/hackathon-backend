@@ -11,6 +11,7 @@ import (
 
 type TourController struct {
 	tourRepository repository.ITourRepository
+	userRepository repository.IUserRepository
 }
 
 func NewTourController(repo repository.ITourRepository) *TourController {
@@ -43,8 +44,28 @@ func (t TourController) GetTour(c *gin.Context) {
 }
 
 func (t TourController) CreateTour(c *gin.Context) {
+	var tour models.Tour
+	userID, ok := c.Get("userID")
+	if !ok {
+		err := errors.New("userID is empty")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
+	tour.UserID, ok = userID.(string)
+	if !ok {
+		c.JSON(http.StatusBadRequest, gin.H{})
+		return
+	}
+
+	_, err := t.userRepository.ReadByID(tour.UserID)
+	if err != nil {
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
 	var tourInfoCreated models.Tour
-	err := c.ShouldBindJSON(&tourInfoCreated)
+	err = c.ShouldBindJSON(&tourInfoCreated)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
@@ -59,11 +80,31 @@ func (t TourController) CreateTour(c *gin.Context) {
 
 func (t TourController) EditTour(c *gin.Context) {
 	var editedTourInfo models.Tour
+	var tour models.Tour
 	err := c.ShouldBindJSON(&editedTourInfo)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
+
+	userID, ok := c.Get("userID")
+	if !ok {
+		err := errors.New("userID is empty")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+	tour.UserID, ok = userID.(string)
+	if !ok {
+		c.JSON(http.StatusBadRequest, gin.H{})
+		return
+	}
+
+	_, err = t.userRepository.ReadByID(tour.UserID)
+	if err != nil {
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+
 	err = t.tourRepository.EditTour(editedTourInfo)
 	if err != nil {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
