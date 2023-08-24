@@ -10,7 +10,7 @@ import (
 type ITourRepository interface {
 	GetAllTours() ([]models.Tour, error)
 	GetTour(string) (models.Tour, error)
-	CreateTour(models.Tour) error
+	CreateTour(*models.Tour) error
 	EditTour(models.Tour) error
 }
 
@@ -40,7 +40,7 @@ func (t TourRepository) GetTour(tourId string) (models.Tour, error) {
 	return tourInfo, nil
 }
 
-func (t TourRepository) CreateTour(to models.Tour) error {
+func (t TourRepository) CreateTour(to *models.Tour) error {
 	//送られてきた時間がRFC3339か確認
 	firstDay := to.FirstDay.Format(time.RFC3339)
 	_, err := time.Parse(time.RFC3339, firstDay)
