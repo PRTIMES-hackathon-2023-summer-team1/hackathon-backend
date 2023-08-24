@@ -2,14 +2,14 @@ package utility
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 const SECRET_KEY = "secret_key"
 
 func GenerateToken(userID string) (string, error) {
-
 	// claimsオブジェクトの作成
 	claims := jwt.MapClaims{
 		"user_id": userID,
@@ -34,7 +34,6 @@ func ParseToken(tokenString string) (string, bool) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-
 		return []byte(SECRET_KEY), nil
 	})
 

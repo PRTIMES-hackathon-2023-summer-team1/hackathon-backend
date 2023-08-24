@@ -28,6 +28,15 @@ func (b BookingController) PostBooking(c *gin.Context) {
 		return
 	}
 
+	// get userID from context
+	userID, ok := c.Get("userID")
+	if !ok {
+		err := errors.New("userID is empty")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+	booking.UserID = userID.(string)
+
 	//tourが存在するか確認
 	_, err = b.tourModelRepository.GetTour(booking.TourID)
 	if err != nil {

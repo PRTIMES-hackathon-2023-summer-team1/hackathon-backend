@@ -34,25 +34,25 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		tourGroup.GET("/:tour_id", tourController.GetTour)
 
 		//ツアー情報操作系
-		tourGroup.POST("", tourController.CreateTour)
-		tourGroup.PUT("", tourController.EditTour)
+		tourGroup.POST("", middleware.JWTAuthHandler(), tourController.CreateTour)
+		tourGroup.PUT("", middleware.JWTAuthHandler(), tourController.EditTour)
 	}
 
-	bookingGroup := r.Group("/booking")
+	bookingGroup := r.Group("/bookings")
 	{
 		// ツアー予約の投稿
-		bookingGroup.POST("/", bookingController.PostBooking)
+		bookingGroup.POST("", middleware.JWTAuthHandler(), bookingController.PostBooking)
 		// ツアー予約の取得
-		bookingGroup.GET("/:userID", bookingController.GetBookingByUserID)
+		bookingGroup.GET("/:userID", middleware.JWTAuthHandler(), bookingController.GetBookingByUserID)
 		// ツアー予約の削除
-		bookingGroup.DELETE("/:bookingID", bookingController.DeleteBooking)
+		bookingGroup.DELETE("/:bookingID", middleware.JWTAuthHandler(), bookingController.DeleteBooking)
 	}
 
 	userGroup := r.Group("/users")
 	{
 		userGroup.POST("/signup", userController.Signup)
 		userGroup.POST("/login", userController.Login)
-		userGroup.GET("/is_admin", userController.IsAdmin)
+		userGroup.GET("/is_admin", middleware.JWTAuthHandler(), userController.IsAdmin)
 	}
 
 	return r
