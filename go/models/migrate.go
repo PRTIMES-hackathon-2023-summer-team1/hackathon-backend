@@ -22,7 +22,7 @@ func Drop(db *gorm.DB) {
 	db.Migrator().DropTable(&TestModel{}, &User{}, &Booking{}, &Tour{})
 }
 
-func InsertDummyDatas(db *gorm.DB) {
+func InsertDummyData(db *gorm.DB) {
 	faker := faker.New()
 	users := []User{}
 	for i := 0; i < USERS_COUNT; i++ {
