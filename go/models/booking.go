@@ -2,6 +2,8 @@ package models
 
 import (
 	"time"
+
+	"github.com/jaswdr/faker"
 )
 
 type Booking struct {
@@ -11,4 +13,13 @@ type Booking struct {
 	Participants int       `gorm:"not null" json:"participants"`
 	CreatedAt    time.Time `json:"created_at"`
 	UpdatedAt    time.Time `json:"updated_at"`
+}
+
+func NewDummyBooking(userID string, tourID string, faker *faker.Faker) *Booking {
+	return &Booking{
+		BookingID:    faker.UUID().V4(),
+		UserID:       userID,
+		TourID:       tourID,
+		Participants: faker.RandomDigitNotNull(),
+	}
 }

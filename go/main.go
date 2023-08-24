@@ -11,8 +11,9 @@ func main() {
 	appInfo := config.LoadConfig()
 	repo, sqlDB := db.Connect(appInfo.PostgresInfo)
 	defer sqlDB.Close()
+	models.Drop(repo)
 	models.Migrate(repo)
-	models.InsertDummyData(repo)
+	models.InsertDummyDatas(repo)
 
 	r := router.NewRouter(repo)
 	r.Run(":8080")
