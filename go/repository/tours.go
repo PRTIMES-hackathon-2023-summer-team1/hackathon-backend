@@ -8,7 +8,7 @@ import (
 )
 
 type ITourRepository interface {
-	GetAllTours() (models.Tour, error)
+	GetAllTours() ([]models.Tour, error)
 	GetTour(string) (models.Tour, error)
 	CreateTour(models.Tour) error
 	EditTour(models.Tour) error
@@ -22,11 +22,11 @@ func NewTourRepository(repo *gorm.DB) *TourRepository {
 	return &TourRepository{repo: repo}
 }
 
-func (t TourRepository) GetAllTours() (models.Tour, error) {
-	var allTours models.Tour
+func (t TourRepository) GetAllTours() ([]models.Tour, error) {
+	var allTours []models.Tour
 	err := t.repo.Find(&allTours).Error
 	if err != nil {
-		return models.Tour{}, err
+		return nil, err
 	}
 	return allTours, nil
 }
