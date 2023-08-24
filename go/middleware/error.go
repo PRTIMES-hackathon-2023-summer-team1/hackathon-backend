@@ -17,8 +17,6 @@ func ErrorHandler() gin.HandlerFunc {
 			c.AbortWithStatusJSON(apierror.StatusCode, gin.H{
 				"error": apierror.ErrorMessage,
 			})
-
 		}
-
 	}
 }
