@@ -56,7 +56,7 @@ func (b BookingController) PostBooking(c *gin.Context) {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusInternalServerError, err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{})
+	c.JSON(http.StatusOK, gin.H{"booking_id": UUID, "user_id": booking.UserID, "tour_id": booking.TourID, "participants": booking.Participants})
 }
 
 func (b BookingController) DeleteBooking(c *gin.Context) {
