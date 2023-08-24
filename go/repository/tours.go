@@ -1,10 +1,11 @@
 package repository
 
 import (
+	"time"
+
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
-	"time"
 )
 
 type ITourRepository interface {
@@ -76,7 +77,16 @@ func (t TourRepository) EditTour(to models.Tour) error {
 	if err != nil {
 		return err
 	}
-	err = t.repo.First(&to, "tour_id = ?", to.TourID).Error
+	err = t.repo.Model(&models.Tour{}).Where("tour_id = ?", to.TourID).Updates(map[string]interface{}{
+		"Description":     to.Description,
+		"Body":            to.Body,
+		"Price":           to.Price,
+		"FirstDay":        to.FirstDay,
+		"LastDay":         to.LastDay,
+		"MaxCapacity":     to.MaxCapacity,
+		"CurrentCapacity": to.CurrentCapacity,
+		"IsVisible":       to.IsVisible,
+	}).Error
 	if err != nil {
 		return err
 	}
