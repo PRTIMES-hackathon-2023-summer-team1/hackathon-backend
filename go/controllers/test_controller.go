@@ -20,12 +20,12 @@ func (t TestController) Set(c *gin.Context) {
 	var testInfo models.TestModel
 	err := c.ShouldBindJSON(&testInfo)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 	err = t.testModelRepository.Set(testInfo)
 	if err != nil {
-		c.Error(err).SetType(gin.ErrorTypePublic)
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, testInfo)

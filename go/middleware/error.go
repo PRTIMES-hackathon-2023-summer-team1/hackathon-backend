@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"log"
-	"net/http"
 
+	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/controllers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,9 +11,14 @@ func ErrorHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
 		err := c.Errors.ByType(gin.ErrorTypePublic).Last()
+		log.Println(err)
 		if err != nil {
-			log.Print(err.Err)
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			apierror := err.Meta.(controllers.APIError)
+			c.AbortWithStatusJSON(apierror.StatusCode, gin.H{
+				"error": apierror.ErrorMessage,
+			})
+
 		}
+
 	}
 }
