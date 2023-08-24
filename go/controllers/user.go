@@ -40,7 +40,7 @@ func (t UserController) Signup(c *gin.Context) {
 	// unmarshall
 	err := c.ShouldBindJSON(user)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, "")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
@@ -50,7 +50,7 @@ func (t UserController) Signup(c *gin.Context) {
 	// データの挿入
 	err = t.userModelRepository.Create(*user)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, "")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
@@ -64,7 +64,7 @@ func (t UserController) Login(c *gin.Context) {
 	// unmarshall
 	err := c.ShouldBindJSON(user)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, "")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
@@ -72,13 +72,13 @@ func (t UserController) Login(c *gin.Context) {
 	registered := &models.User{}
 	registered, err = t.userModelRepository.Read(user.UserID)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, "")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
 	// パスワードをチェック
 	if !checkPassword(registered.Password, user.Password) {
-		c.JSON(http.StatusBadRequest, "")
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
 
