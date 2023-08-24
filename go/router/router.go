@@ -17,16 +17,13 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	r.Use(cors.New(config))
 	r.Use(middleware.ErrorHandler())
 
-	testRepository := repository.NewTestRepository(db)
 	tourRepository := repository.NewTourRepository(db)
 	userRepository := repository.NewUserRepository(db)
 	bookingRepository := repository.NewBookingRepository(db)
-	testController := controllers.NewTestController(testRepository)
 	tourController := controllers.NewTourController(tourRepository)
 	userController := controllers.NewUserController(userRepository)
 	bookingController := controllers.NewBookingController(bookingRepository, tourRepository, userRepository)
 
-	r.POST("/test", testController.Set)
 	tourGroup := r.Group("/tours")
 	{
 		//ツアー情報閲覧系
@@ -36,19 +33,27 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		//ツアー情報操作系
 		tourGroup.POST("", tourController.CreateTour)
 		tourGroup.PUT("", tourController.EditTour)
+
+		//ツアー情報検索
+		tourGroup.GET("/search", tourController.SearchTour)
 	}
 
 	bookingGroup := r.Group("/booking")
 	{
 		// ツアー予約の投稿
-		bookingGroup.POST("/:tourID", bookingController.PostBooking)
+		bookingGroup.POST("/", bookingController.PostBooking)
 		// ツアー予約の取得
 		bookingGroup.GET("/:userID", bookingController.GetBookingByUserID)
 		// ツアー予約の削除
 		bookingGroup.DELETE("/:bookingID", bookingController.DeleteBooking)
 	}
-	r.POST("/signup", userController.Signup)
-	r.POST("/login", userController.Login)
+
+	userGroup := r.Group("/users")
+	{
+		userGroup.POST("/signup", userController.Signup)
+		userGroup.POST("/login", userController.Login)
+		userGroup.GET("/is_admin", userController.IsAdmin)
+	}
 
 	return r
 }

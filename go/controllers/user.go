@@ -2,12 +2,13 @@ package controllers
 
 import (
 	"errors"
+	"net/http"
+
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/repository"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/utility"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"net/http"
 )
 
 type UserController struct {
@@ -78,4 +79,14 @@ func (t UserController) Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"token": tokenString,
 	})
+}
+
+func (t UserController) IsAdmin(c *gin.Context) {
+	userId := c.Query("user-id")
+	authority, err := t.userModelRepository.IsAdmin(userId)
+	if err != nil {
+		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "authority": authority})
 }
