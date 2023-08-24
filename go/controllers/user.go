@@ -5,7 +5,6 @@ import (
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/repository"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/utility"
 	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )
 
@@ -60,7 +59,7 @@ func (t UserController) Login(c *gin.Context) {
 	}
 
 	// パスワードをチェック
-	if !checkPassword(registered.Password, user.Password) {
+	if !utility.IsValidPassword(registered.Password, user.Password) {
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
