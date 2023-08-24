@@ -1,5 +1,5 @@
 {
   "dockerComposeFile": ["../compose.yaml", "./compose.yaml"],
   "service": "app",
-  "workspaceFolder": "/go/src/app"
+  "workspaceFolder": "/go/src/app/go"
 }
