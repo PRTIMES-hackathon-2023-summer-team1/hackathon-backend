@@ -2,6 +2,7 @@ package repository
 
 import (
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -20,6 +21,7 @@ func NewUserRepository(repo *gorm.DB) *UserRepository {
 }
 
 func (t UserRepository) Create(u models.User) error {
+	u.UserID = uuid.New().String() // UserIDはUUIDで生成
 	result := t.repo.Create(&u)
 	return result.Error
 }
