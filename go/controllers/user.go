@@ -8,7 +8,11 @@ import (
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/repository"
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/utility"
 	"github.com/gin-gonic/gin"
+<<<<<<< Updated upstream
 	"github.com/google/uuid"
+=======
+	"net/http"
+>>>>>>> Stashed changes
 )
 
 type UserController struct {
@@ -62,9 +66,14 @@ func (t UserController) Login(c *gin.Context) {
 		return
 	}
 
+<<<<<<< Updated upstream
 	// emailをチェック
 	if registered.Email != user.Email {
 		err := errors.New("email incorrect")
+=======
+	// パスワードをチェック
+	if !utility.IsValidPassword(registered.Password, user.Password) {
+>>>>>>> Stashed changes
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
