@@ -1,10 +1,13 @@
 package repository
 
 import (
+	"net/url"
+	"strings"
 	"time"
 
 	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/models"
 	"github.com/google/uuid"
+	"google.golang.org/genproto/googleapis/devtools/resultstore/v2"
 	"gorm.io/gorm"
 )
 
@@ -13,6 +16,7 @@ type ITourRepository interface {
 	GetTour(string) (models.Tour, error)
 	CreateTour(*models.Tour) error
 	EditTour(models.Tour) error
+	SearchTour(keyword string) ([]models.Tour, error)
 }
 
 type TourRepository struct {
@@ -91,4 +95,27 @@ func (t TourRepository) EditTour(to models.Tour) error {
 		return err
 	}
 	return nil
+}
+
+func (t TourRepository) SearchTour(keyword string) ([]models.Tour, error) {
+	parsedKeyword, err := url.QueryUnescape(keyword)
+	if err != nil {
+		return nil, err
+	}
+	keywords := strings.Split(parsedKeyword, "")
+
+	condition := "name LIKE ?"
+	values := []interface{}{"%" + keywords[0] + "%"}
+
+	for i := 1; i < len(keywords); i++ {
+		condition += " AND name LIKE ?"
+		values = append(values, "%"+keywords[i]+"%")
+	}
+
+	var tours []models.Tour
+	err = t.repo.Where(condition, values...).Find(&tours).Error
+	if err != nil {
+		return nil, err
+	}
+	return tours, nil
 }
