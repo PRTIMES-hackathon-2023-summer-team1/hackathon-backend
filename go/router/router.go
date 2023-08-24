@@ -41,7 +41,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	bookingGroup := r.Group("/booking")
 	{
 		// ツアー予約の投稿
-		bookingGroup.POST("/:tourID", bookingController.PostBooking)
+		bookingGroup.POST("/", bookingController.PostBooking)
 		// ツアー予約の取得
 		bookingGroup.GET("/:userID", bookingController.GetBookingByUserID)
 		// ツアー予約の削除
