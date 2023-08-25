@@ -2,6 +2,7 @@ package utility
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -30,21 +31,25 @@ func GenerateToken(userID string) (string, error) {
 
 // ParseToken トークンの認証とuser_idの返却
 func ParseToken(tokenString string) (string, bool) {
-	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(SECRET_KEY), nil
 	})
+	if err != nil {
+		log.Println(err)
+		return "", false
+	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	userID := claims["user_id"].(string)
 
 	// トークンの期限チェック
-	if claims.VerifyExpiresAt(time.Now().Unix(), false) {
+	if !claims.VerifyExpiresAt(time.Now().Unix(), false) {
 		return "", false
 
-		// トークンの内容の確認
+		//トークンの内容の確認
 	} else if !ok || !token.Valid {
 		return "", false
 
