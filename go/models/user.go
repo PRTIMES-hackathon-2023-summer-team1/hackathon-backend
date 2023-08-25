@@ -3,8 +3,8 @@ package models
 import (
 	"time"
 
-	"github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend/utility"
 	"github.com/jaswdr/faker"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -18,12 +18,15 @@ type User struct {
 }
 
 func NewDummyUser(isAdmin bool, faker *faker.Faker) *User {
-	encryptedPassword, _ := utility.EncryptPassword(faker.Internet().Password())
+	hash, err := bcrypt.GenerateFromPassword([]byte(faker.Internet().Password()), bcrypt.DefaultCost)
+	if err != nil {
+		panic(err)
+	}
 	return &User{
 		UserID:   faker.UUID().V4(),
 		Name:     faker.Person().Name(),
 		Email:    faker.Internet().Email(),
-		Password: encryptedPassword,
+		Password: string(hash),
 		IsAdmin:  isAdmin,
 	}
 }

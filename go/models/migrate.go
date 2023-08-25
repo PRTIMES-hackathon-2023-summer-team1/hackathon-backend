@@ -15,11 +15,11 @@ const (
 )
 
 func Migrate(db *gorm.DB) {
-	db.AutoMigrate(&User{}, &Booking{}, &Tour{})
+	db.AutoMigrate(&User{}, &Booking{}, &Tour{}, &JWTJTI{})
 }
 
 func Drop(db *gorm.DB) {
-	db.Migrator().DropTable(&User{}, &Booking{}, &Tour{})
+	db.Migrator().DropTable(&User{}, &Booking{}, &Tour{}, &JWTJTI{})
 }
 
 func InsertDummyData(db *gorm.DB) {
