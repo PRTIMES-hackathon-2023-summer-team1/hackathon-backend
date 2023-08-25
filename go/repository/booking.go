@@ -22,18 +22,18 @@ func NewBookingRepository(repo *gorm.DB) *BookingRepository {
 
 func (b BookingRepository) Set(booking *models.Booking) error {
 	var tour *models.Tour
-	err := b.repo.Model(&tour).Where("tour_id = ?", booking.TourID).First(&tour).Error
-	if err != nil {
-		return err
-	}
-
-	if tour.CurrentCapacity + booking.Participants > tour.MaxCapacity {
-		return err
-	}
-
 	tx := b.repo.Begin()
 	{
-		err := tx.Create(&booking).Error
+		err := b.repo.Model(&tour).Where("tour_id = ?", booking.TourID).First(&tour).Error
+		if err != nil {
+			return err
+		}
+
+		if tour.CurrentCapacity+booking.Participants > tour.MaxCapacity {
+			return err
+		}
+
+		err = tx.Create(&booking).Error
 		if err != nil {
 			tx.Rollback()
 			return err
@@ -46,18 +46,18 @@ func (b BookingRepository) Set(booking *models.Booking) error {
 			return err
 		}
 	}
-	err = tx.Commit().Error
+	err := tx.Commit().Error
 	return err
 }
 
 func (b BookingRepository) Delete(bookingID string) error {
 	var booking *models.Booking
-	err := b.repo.Where("booking_id = ?", bookingID).First(&booking).Error
-	if err != nil {
-		return err
-	}
 	tx := b.repo.Begin()
 	{
+		err := b.repo.Where("booking_id = ?", bookingID).First(&booking).Error
+		if err != nil {
+			return err
+		}
 		err = tx.Delete(&booking).Error
 		if err != nil {
 			tx.Rollback()
@@ -78,11 +78,11 @@ func (b BookingRepository) Delete(bookingID string) error {
 			return err
 		}
 	}
-	err = tx.Commit().Error
+	err := tx.Commit().Error
 	return err
 }
 
-func (b BookingRepository) ReadByUserID(userID string) ( []*models.BookingJoinTour, error) {
+func (b BookingRepository) ReadByUserID(userID string) ([]*models.BookingJoinTour, error) {
 	var bookingJoinTour []*models.BookingJoinTour
 	err := b.repo.Model(&models.Booking{}).Select("bookings.booking_id, bookings.tour_id, bookings.user_id, tours.name, bookings.participants, tours.price, tours.first_day, tours.last_day").Joins("left join tours on bookings.tour_id = tours.tour_id").Where("bookings.user_id = ?", userID).Find(&bookingJoinTour).Error
 	return bookingJoinTour, err
