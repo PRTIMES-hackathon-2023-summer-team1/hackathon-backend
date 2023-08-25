@@ -20,9 +20,12 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	tourRepository := repository.NewTourRepository(db)
 	userRepository := repository.NewUserRepository(db)
 	bookingRepository := repository.NewBookingRepository(db)
+	jtiRepository := repository.NewJTIRepository(db) // todo: redisに変更
 	tourController := controllers.NewTourController(tourRepository)
-	userController := controllers.NewUserController(userRepository)
+	userController := controllers.NewUserController(userRepository, jtiRepository)
 	bookingController := controllers.NewBookingController(bookingRepository, tourRepository, userRepository)
+
+	JWTAuthMiddleware := middleware.NewJWTAuthMiddleware(jtiRepository)
 
 	tourGroup := r.Group("/tours")
 	{
@@ -34,25 +37,26 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 		tourGroup.GET("/:tour_id", tourController.GetTour)
 
 		//ツアー情報操作系
-		tourGroup.POST("", middleware.JWTAuthHandler(), tourController.CreateTour)
-		tourGroup.PUT("", middleware.JWTAuthHandler(), tourController.EditTour)
+		tourGroup.POST("", JWTAuthMiddleware.JWTAuthHandler(), tourController.CreateTour)
+		tourGroup.PUT("", JWTAuthMiddleware.JWTAuthHandler(), tourController.EditTour)
 	}
 
 	bookingGroup := r.Group("/bookings")
 	{
 		// ツアー予約の投稿
-		bookingGroup.POST("", middleware.JWTAuthHandler(), bookingController.PostBooking)
+		bookingGroup.POST("", JWTAuthMiddleware.JWTAuthHandler(), bookingController.PostBooking)
 		// ツアー予約の取得
-		bookingGroup.GET("", middleware.JWTAuthHandler(), bookingController.GetBookingByUserID)
+		bookingGroup.GET("", JWTAuthMiddleware.JWTAuthHandler(), bookingController.GetBookingByUserID)
 		// ツアー予約の削除
-		bookingGroup.DELETE("/:bookingID", middleware.JWTAuthHandler(), bookingController.DeleteBooking)
+		bookingGroup.DELETE("/:bookingID", JWTAuthMiddleware.JWTAuthHandler(), bookingController.DeleteBooking)
 	}
 
 	userGroup := r.Group("/users")
 	{
 		userGroup.POST("/signup", userController.Signup)
 		userGroup.POST("/login", userController.Login)
-		userGroup.GET("/is_admin", middleware.JWTAuthHandler(), userController.IsAdmin)
+		userGroup.POST("/refresh", userController.Refresh)
+		userGroup.GET("/is_admin", JWTAuthMiddleware.JWTAuthHandler(), userController.IsAdmin)
 	}
 
 	return r
