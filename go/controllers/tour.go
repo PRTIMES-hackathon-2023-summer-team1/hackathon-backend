@@ -14,8 +14,8 @@ type TourController struct {
 	userRepository repository.IUserRepository
 }
 
-func NewTourController(repo repository.ITourRepository) *TourController {
-	return &TourController{tourRepository: repo}
+func NewTourController(repo repository.ITourRepository, userRepo repository.IUserRepository) *TourController {
+	return &TourController{tourRepository: repo, userRepository: userRepo}
 }
 
 func (t TourController) GetAllTours(c *gin.Context) {
@@ -30,7 +30,7 @@ func (t TourController) GetAllTours(c *gin.Context) {
 func (t TourController) GetTour(c *gin.Context) {
 	tourId := c.Param("tour_id")
 	if tourId == "" {
-		err := errors.New("Param is empty")
+		err := errors.New("param is empty")
 		c.Error(err).SetType(gin.ErrorTypePublic).SetMeta(APIError{http.StatusBadRequest, err.Error()})
 		return
 	}
@@ -40,7 +40,6 @@ func (t TourController) GetTour(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, tourInfo)
-	return
 }
 
 func (t TourController) CreateTour(c *gin.Context) {
