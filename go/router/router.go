@@ -21,7 +21,6 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	userRepository := repository.NewUserRepository(db)
 	bookingRepository := repository.NewBookingRepository(db)
 	jtiRepository := repository.NewJTIRepository(db) // todo: redisに変更
-	tourController := controllers.NewTourController(tourRepository)
 	userController := controllers.NewUserController(userRepository, jtiRepository)
 	tourController := controllers.NewTourController(tourRepository, userRepository)
 	bookingController := controllers.NewBookingController(bookingRepository, tourRepository, userRepository)
