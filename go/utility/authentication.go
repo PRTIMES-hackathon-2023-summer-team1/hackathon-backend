@@ -45,16 +45,10 @@ func ParseToken(tokenString string) (string, bool) {
 	claims, ok := token.Claims.(jwt.MapClaims)
 	userID := claims["user_id"].(string)
 
-	// トークンの期限チェック
-	if !claims.VerifyExpiresAt(time.Now().Unix(), false) {
-		return "", false
-
-		//トークンの内容の確認
-	} else if !ok || !token.Valid {
-		return "", false
-
-		// 問題ない場合
+	//トークン認証
+	if !ok || !token.Valid || !claims.VerifyExpiresAt(time.Now().Unix(), false) {
+		return "", false // fail
 	} else {
-		return userID, true
+		return userID, true // success
 	}
 }
