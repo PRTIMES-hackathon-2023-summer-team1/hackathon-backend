@@ -2,6 +2,7 @@ package utility
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -36,14 +37,18 @@ func ParseToken(tokenString string) (string, bool) {
 		}
 		return []byte(SECRET_KEY), nil
 	})
-
 	if err != nil {
+		log.Println(err)
 		return "", false
 	}
 
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		return claims["user_id"].(string), true // 認証OK
+	claims, ok := token.Claims.(jwt.MapClaims)
+	userID := claims["user_id"].(string)
+
+	//トークン認証
+	if !ok || !token.Valid || !claims.VerifyExpiresAt(time.Now().Unix(), false) {
+		return "", false // fail
 	} else {
-		return "", false
+		return userID, true // success
 	}
 }
