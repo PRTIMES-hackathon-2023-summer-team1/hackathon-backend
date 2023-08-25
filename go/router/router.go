@@ -20,7 +20,7 @@ func NewRouter(db *gorm.DB) *gin.Engine {
 	tourRepository := repository.NewTourRepository(db)
 	userRepository := repository.NewUserRepository(db)
 	bookingRepository := repository.NewBookingRepository(db)
-	tourController := controllers.NewTourController(tourRepository)
+	tourController := controllers.NewTourController(tourRepository, userRepository)
 	userController := controllers.NewUserController(userRepository)
 	bookingController := controllers.NewBookingController(bookingRepository, tourRepository, userRepository)
 
