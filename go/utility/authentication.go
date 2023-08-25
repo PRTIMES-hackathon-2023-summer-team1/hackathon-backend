@@ -39,14 +39,17 @@ func ParseToken(tokenString string) (string, bool) {
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	userID := claims["user_id"].(string)
-	exp := claims["exp"].(time.Time).Unix()
-	now := time.Now().Unix()
 
-	if exp < now {
-		return "", false // トークンの期限切れ
+	// トークンの期限チェック
+	if claims.VerifyExpiresAt(time.Now().Unix(), false) {
+		return "", false
+
+		// トークンの内容の確認
 	} else if !ok || !token.Valid {
-		return "", false // トークン認証失敗
+		return "", false
+
+		// 問題ない場合
 	} else {
-		return userID, true // 認証OK
+		return userID, true
 	}
 }
