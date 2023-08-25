@@ -30,12 +30,16 @@ func GenerateToken(userID string) (string, error) {
 
 // ParseToken トークンの認証とuser_idの返却
 func ParseToken(tokenString string) (string, bool) {
-	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 		return []byte(SECRET_KEY), nil
 	})
+
+	if err != nil {
+		return "", false
+	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		return claims["user_id"].(string), true // 認証OK

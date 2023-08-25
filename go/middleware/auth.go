@@ -13,27 +13,35 @@ func JWTAuthHandler() gin.HandlerFunc {
 		token := c.GetHeader("Authorization")
 		if token == "" {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"code": http.StatusUnauthorized,
+				"code":    http.StatusUnauthorized,
 				"message": "Unauthorized",
 			})
 			return
 		}
-		
+
 		// remove bearer
 		if len(token) < 7 || token[:7] != "Bearer " {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"code": http.StatusUnauthorized,
+				"code":    http.StatusUnauthorized,
 				"message": "Unauthorized",
 			})
 			return
 		}
 		token = token[7:]
 
+		if token == "" {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"code":    http.StatusUnauthorized,
+				"message": "Unauthorized",
+			})
+			return
+		}
+
 		// verify token
 		userID, ok := utility.ParseToken(token)
 		if !ok {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"code": http.StatusUnauthorized,
+				"code":    http.StatusUnauthorized,
 				"message": "Unauthorized",
 			})
 			return
