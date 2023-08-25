@@ -29,7 +29,7 @@ PR TIMES hackathon 2023 summerのバックエンドリポジトリ
 1. Clone this repository
 
 ```
-git clone https://github.com/GoRuGoo/koyofes2023-reception-system-backend.git
+git clone https://github.com/PRTIMES-hackathon-2023-summer-team1/hackathon-backend
 ```
 
 2. Change directory
